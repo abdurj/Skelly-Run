@@ -14,7 +14,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     var player: Body
     val bodyFactory = BodyFactory(world)
     val mPlat = bodyFactory.makePlatform(800f,400f,50f,25f,STONE, LOW_FRIC,BodyDef.BodyType.KinematicBody,Vector2(1f,0f))
-    val mPlat2 = bodyFactory.makePlatform(850f, 400f, 50f, 25f, STONE, LOW_FRIC, BodyDef.BodyType.KinematicBody, Vector2(0f, 1f))
+    val mPlat2 = bodyFactory.makePlatform(1050f, 400f, 50f, 25f, STONE, LOW_FRIC, BodyDef.BodyType.KinematicBody, Vector2(0f, 1f))
     var isSwimming = false
     var isJumping = false
     var doubleJump = false
@@ -48,6 +48,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         plat5.userData = "MainPlat"
 
         mPlat.userData = "MovingPlat"
+        mPlat2.userData = "MovingPlat"
     }
 
 
