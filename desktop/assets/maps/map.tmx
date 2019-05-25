@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-up" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="8">
+ <tileset firstgid="1" source="industrial.v1.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwzYWBgMKEAkwOoqZcUt+BSR4yfyHGzCRJNrF50d5CqF5tZpNhHrF5ywoqYuMKnlxCgNG2Qah82e8jBAGj4EEE=
+  </data>
+ </layer>
+ <objectgroup id="2" name="collisionLayer">
+  <object id="4" x="32" y="448">
+   <polyline points="0,0 416,0 416,-416 0,-416 0,-32"/>
+  </object>
+  <object id="5" x="96" y="448">
+   <polyline points="0,0 0,-64 64,-64 64,-128 128,-128 128,-160 160,-160 160,-192 224,-192 224,-256 288,-256 288,-288 320,-288 320,-224 256,-224 256,-160 192,-160 192,-128 160,-128 160,-96 96,-96 96,-32 32,-32 32,0"/>
+  </object>
+  <object id="6" x="288" y="160">
+   <polyline points="0,0 0,-32 -96,-32 -96,-64 -192,-64 -192,-32 -128,-32 -128,0 -32,0"/>
+  </object>
+  <object id="7" x="96" y="256" width="32" height="32"/>
+ </objectgroup>
+</map>
