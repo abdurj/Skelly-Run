@@ -6,6 +6,13 @@ import com.badlogic.gdx.math.Polyline
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.badlogic.gdx.maps.objects.RectangleMapObject
+import com.badlogic.gdx.physics.box2d.ChainShape
+import com.badlogic.gdx.maps.objects.PolylineMapObject
+import com.sun.awt.SecurityWarning.setPosition
+import com.badlogic.gdx.physics.box2d.CircleShape
+import com.badlogic.gdx.maps.objects.CircleMapObject
 
 class TiledObjectUtil {
 
@@ -22,16 +29,16 @@ class TiledObjectUtil {
                     shape = createPolygon(obj)
                 }
                 else if(obj is RectangleMapObject){
-                    val rect =  obj.rectangle
-                    shape = PolygonShape()
-                    shape.setAsBox(rect.width/ PPM,rect.height/ PPM,Vector2(rect.x,rect.y),0f)
-                    //shape.setAsBox(rect.width/ PPM,rect.height/ PPM)
+                    shape = createRectangle(obj)
+                }
+                else if(obj is CircleMapObject){
+                    shape = createCircle(obj)
                 }
                 else{
                     continue
                 }
 
-                val body: Body;
+                val body: Body
                 val bodyDef = BodyDef()
                 bodyDef.type = BodyDef.BodyType.StaticBody
                 body = world.createBody(bodyDef)
@@ -57,7 +64,7 @@ class TiledObjectUtil {
 
         private fun createPolygon(obj: PolygonMapObject): PolygonShape{
             val vertices: FloatArray = obj.polygon.transformedVertices
-            val worldVertices: FloatArray = FloatArray(vertices.size)
+            val worldVertices = FloatArray(vertices.size)
             for(i in 0 until vertices.size){
                 worldVertices[i] = vertices[i] / PPM
             }
@@ -67,5 +74,28 @@ class TiledObjectUtil {
             return polygonShape
         }
 
+        private fun createRectangle(rectangleObject: RectangleMapObject): PolygonShape {
+            val rectangle = rectangleObject.rectangle
+            val polygon = PolygonShape()
+
+            val size = Vector2((rectangle.x + rectangle.width * 0.5f) / PPM,
+                    (rectangle.y + rectangle.height * 0.5f) / PPM)
+
+            polygon.setAsBox(rectangle.width * 0.5f / PPM,
+                    rectangle.height * 0.5f / PPM,
+                    size,
+                    0.0f)
+
+            return polygon
+        }
+
+
+        private fun createCircle(circleObject: CircleMapObject): CircleShape {
+            val circle = circleObject.circle
+            val circleShape = CircleShape()
+            circleShape.radius = circle.radius / PPM
+            circleShape.position = Vector2(circle.x / PPM, circle.y / PPM)
+            return circleShape
+        }
     }
 }
