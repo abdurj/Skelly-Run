@@ -14,53 +14,56 @@ class Player(bodyFactory: BodyFactory, private val controller: KeyboardControlle
 
     val texture = Texture("images/ichigo.png")
 
-    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, 28f, 28f, STONE, BodyDef.BodyType.DynamicBody, true)
+    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, 14f, 14f, STONE, BodyDef.BodyType.DynamicBody, true)
     var isSwimming = false
     var isJumping = false
     var doubleJump = false
 
+    init{
+        playerBody.userData = "player"
+    }
+
     fun update(){
+        if(isSwimming && playerBody.linearVelocity.y <= MAX_Y_VELOCITY){
+            playerBody.applyForceToCenter(Vector2(0f,3.5f),true)
+        }
+
         if(controller.left && playerBody.linearVelocity.x >= -MAX_X_VELOCITY){
-            playerBody.applyLinearImpulse(Vector2(-1.5f,0f), Vector2(playerBody.position.x,playerBody.position.y),true)
+            playerBody.applyLinearImpulse(Vector2(-0.5f,0f), Vector2(playerBody.position.x,playerBody.position.y),true)
         }
 
         if(controller.right && playerBody.linearVelocity.x <= MAX_X_VELOCITY){
-            playerBody.applyLinearImpulse(Vector2(1.5f,0f), Vector2(playerBody.position.x,playerBody.position.y),true)
+            playerBody.applyLinearImpulse(Vector2(0.5f,0f), Vector2(playerBody.position.x,playerBody.position.y),true)
         }
 
         else if(!controller.right && !controller.left){
             playerBody.linearVelocity = Vector2(0f, playerBody.linearVelocity.y)
         }
 
-        //if(!isJumping){
-        if(true){
+        if(!isJumping){
+        //if(true){
             if(Gdx.input.isKeyJustPressed(Input.Keys.UP) && playerBody.linearVelocity.y <= MAX_Y_VELOCITY){
-                playerBody.applyLinearImpulse(Vector2(0f,5f), Vector2(playerBody.position.x,playerBody.position.y),true)
+                playerBody.applyLinearImpulse(Vector2(0f,1f), Vector2(playerBody.position.x,playerBody.position.y),true)
                 isJumping = true
                 doubleJump = false
             }
         }
         else if(isJumping && !doubleJump){
-            if(Gdx.input.isKeyJustPressed(Input.Keys.UP) && playerBody.linearVelocity.y <= 10){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.UP) && playerBody.linearVelocity.y <= MAX_Y_VELOCITY){
                 playerBody.linearVelocity = Vector2(playerBody.linearVelocity.x,0f)
-                playerBody.applyLinearImpulse(Vector2(0f,6.5f), Vector2(playerBody.position.x,playerBody.position.y),true)
+                playerBody.applyLinearImpulse(Vector2(0f,1f), Vector2(playerBody.position.x,playerBody.position.y),true)
                 isJumping = true
                 doubleJump = true
             }
-        }
-
-
-        if(isSwimming){
-            playerBody.applyForceToCenter(Vector2(0f,50f),false)
         }
     }
 
 
     fun drawPlayer(){
-        val xPos = playerBody.position.x * PPM - (PPM / 2)
-        val yPos = playerBody.position.y * PPM - (PPM / 2)
+        val xPos = playerBody.position.x * PPM - (0.43f*PPM / 2f)
+        val yPos = playerBody.position.y * PPM - (0.43f*PPM / 2f)
 
-        batch.draw(texture,xPos,yPos,32f,32f)
+        batch.draw(texture,xPos,yPos,14f,14f)
     }
 
 }

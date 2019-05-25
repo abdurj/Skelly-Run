@@ -15,11 +15,11 @@ import com.badlogic.gdx.physics.box2d.*
 import com.mygdx.game.controller.KeyboardController
 import com.mygdx.game.utils.*
 
-class B2DModel(val controller: KeyboardController, private val camera: OrthographicCamera) {
+class B2DModel(controller: KeyboardController, private val camera: OrthographicCamera) {
     val world: World = World(Vector2(0f,-9.8f),true)
     private val bodyFactory = BodyFactory(world)
 
-    val map: TiledMap = TmxMapLoader().load("maps/map.tmx")
+    val map: TiledMap = TmxMapLoader().load("maps/map2.tmx")
 
     val tmr: OrthogonalTiledMapRenderer = OrthogonalTiledMapRenderer(map)
 
@@ -27,6 +27,8 @@ class B2DModel(val controller: KeyboardController, private val camera: Orthograp
 
     val player = Player(bodyFactory,controller,batch,camera)
     private val playerBody = player.playerBody
+
+    private val water = bodyFactory.makeBoxPolyBody(176f,40f,95f,48f, STONE, BodyDef.BodyType.StaticBody)
 
 
     init {
@@ -36,7 +38,12 @@ class B2DModel(val controller: KeyboardController, private val camera: Orthograp
         val floor = bodyFactory.makeBoxPolyBody(0f, 32f, 150f, 1f, STONE, BodyDef.BodyType.StaticBody, true)
         floor.userData = "MainPlat"
 
-        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects)
+        bodyFactory.makeAllFixturesSensors(water)
+        water.userData = "water"
+
+
+        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
+        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
     }
 
     fun update(deltaTime: Float){

@@ -2,15 +2,12 @@ package com.mygdx.game.utils
 
 import com.badlogic.gdx.maps.MapObjects
 import com.badlogic.gdx.maps.objects.*
-import com.badlogic.gdx.math.Polyline
-import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.physics.box2d.ChainShape
 import com.badlogic.gdx.maps.objects.PolylineMapObject
-import com.sun.awt.SecurityWarning.setPosition
 import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.maps.objects.CircleMapObject
 
@@ -18,7 +15,7 @@ class TiledObjectUtil {
 
 
     companion object{
-        fun parseTiledObjectLayer(world: World, objects:MapObjects){
+        fun parseTiledObjectLayer(world: World, objects:MapObjects,data:String){
             for(obj in objects){
                 val shape: Shape
 
@@ -34,6 +31,9 @@ class TiledObjectUtil {
                 else if(obj is CircleMapObject){
                     shape = createCircle(obj)
                 }
+                /*else if(obj is EllipseMapObject){
+                    shape = createEllipse(obj)
+                }*/
                 else{
                     continue
                 }
@@ -42,8 +42,19 @@ class TiledObjectUtil {
                 val bodyDef = BodyDef()
                 bodyDef.type = BodyDef.BodyType.StaticBody
                 body = world.createBody(bodyDef)
+                val fixture = FixtureDef()
+                fixture.shape = shape
+                fixture.density = 1.0f
+                if(data == "MainPlat"){
+                    fixture.friction = 1f
+                }
+                else{
+                    fixture.friction = 0f
+                }
 
-                body.createFixture(shape, 1.0f)
+                fixture.friction = 0f
+                body.createFixture(fixture)
+                body.userData = data
                 shape.dispose()
             }
 
@@ -74,8 +85,8 @@ class TiledObjectUtil {
             return polygonShape
         }
 
-        private fun createRectangle(rectangleObject: RectangleMapObject): PolygonShape {
-            val rectangle = rectangleObject.rectangle
+        private fun createRectangle(obj: RectangleMapObject): PolygonShape {
+            val rectangle = obj.rectangle
             val polygon = PolygonShape()
 
             val size = Vector2((rectangle.x + rectangle.width * 0.5f) / PPM,
@@ -90,12 +101,22 @@ class TiledObjectUtil {
         }
 
 
-        private fun createCircle(circleObject: CircleMapObject): CircleShape {
-            val circle = circleObject.circle
+        private fun createCircle(obj: CircleMapObject): CircleShape {
+            val circle = obj.circle
             val circleShape = CircleShape()
-            circleShape.radius = circle.radius / PPM
+            circleShape.radius = circle.radius
             circleShape.position = Vector2(circle.x / PPM, circle.y / PPM)
             return circleShape
         }
+
+        /*
+        private fun createEllipse(obj: EllipseMapObject): Shape {
+            val ellipse = obj.ellipse
+            val ellipseShape = CircleShape()
+            ellipseShape.radius = (ellipse.circumference() / (2 * Math.PI)).toFloat()
+            ellipseShape.position = Vector2(ellipse.x / PPM,ellipse.y/ PPM)
+            return ellipseShape
+        }*/
+
     }
 }

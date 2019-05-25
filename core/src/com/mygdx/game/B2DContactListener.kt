@@ -15,7 +15,7 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
     override fun endContact(contact: Contact) {
         val fa = contact.fixtureA
         val fb = contact.fixtureB
-        println("${fa.body.type} has left ${fb.body.userData}")
+        println("${fa.body.userData} has left ${fb.body.userData}")
 
         if (fa.body.userData == "MainPlat") {
             player.isJumping = true
@@ -27,13 +27,27 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
             player.doubleJump = false
             return
         }
+        if(fa.body.userData == "water" && fb.body.userData == "player"){
+            player.isSwimming = false
+        }
+        else if(fb.body.userData == "water" && fa.body.userData == "player"){
+            player.isSwimming = false
+        }
     }
 
     override fun beginContact(contact: Contact) {
         println("contact")
         val fixtureA: Fixture = contact.fixtureA
         val fixtureB: Fixture = contact.fixtureB
-        println("${fixtureA.body.type} has hit ${fixtureB.body.userData}")
+        println("${fixtureA.body.userData} has hit ${fixtureB.body.userData}")
+
+        if(fixtureA.body.userData == "water" && fixtureB.body.userData == "player"){
+            player.isSwimming = true
+        }
+        else if(fixtureB.body.userData == "water" && fixtureA.body.userData == "player"){
+            println("isswimming")
+            player.isSwimming = true
+        }
 
         if(fixtureA.body.userData == "MainPlat"){
             player.isJumping = false
@@ -53,10 +67,6 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
     override fun postSolve(contact: Contact?, impulse: ContactImpulse?) {
     }
 
-    private fun applyUpwardsForce(staticFixture: Fixture,otherFixture: Fixture){
-        println("Applying Force")
-        otherFixture.body.applyForceToCenter(Vector2(0f,300f),true)
-    }
 
 
 }
