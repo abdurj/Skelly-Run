@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ICS3U0-Final-master.iml" filepath="$PROJECT_DIR$/ICS3U0-Final-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final-master.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final-master.core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final-master.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final-master.core.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final-master.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final-master.core.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final-master.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final-master.desktop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final-master.desktop.main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final-master.desktop.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final-master.desktop.test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final-master.desktop.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ICS3U0-Final.iml" filepath="$PROJECT_DIR$/ICS3U0-Final.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final.core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/ICS3U0-Final.core.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final.desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final.desktop.main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final.desktop.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final.desktop.test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/ICS3U0-Final.desktop.test.iml" />
     </modules>
   </component>
 </project>

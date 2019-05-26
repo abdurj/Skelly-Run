@@ -6,6 +6,10 @@
       <module name="ICS3U0-Final-master.core.test" target="1.6" />
       <module name="ICS3U0-Final-master.desktop.main" target="1.6" />
       <module name="ICS3U0-Final-master.desktop.test" target="1.6" />
+      <module name="ICS3U0-Final.core.main" target="1.6" />
+      <module name="ICS3U0-Final.core.test" target="1.6" />
+      <module name="ICS3U0-Final.desktop.main" target="1.6" />
+      <module name="ICS3U0-Final.desktop.test" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

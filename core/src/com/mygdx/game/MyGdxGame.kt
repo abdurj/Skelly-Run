@@ -30,8 +30,6 @@ class MyGdxGame : ApplicationAdapter() {
         camera = OrthographicCamera()
         camera.setToOrtho(false, width / SCALE, height / SCALE)
 
-        Gdx.input.inputProcessor = controller
-
         model = B2DModel(controller,camera)
 
         b2dr = Box2DDebugRenderer(true,true,true,true,true,true)
@@ -40,6 +38,8 @@ class MyGdxGame : ApplicationAdapter() {
 
     override fun render() {
         //Render
+
+        Gdx.input.inputProcessor = controller
 
         model.update(Gdx.graphics.deltaTime)
 
