@@ -1,4 +1,4 @@
-package com.mygdx.game.entities
+package com.mygdx.game.entities.setup
 
 import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.ai.steer.SteeringAcceleration
@@ -7,8 +7,6 @@ import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.mygdx.game.utils.SteeringUtil
-import sun.awt.windows.ThemeReader.getPosition
-
 
 
 class SteeringEntity(internal val body: Body, internal val boundingRadius: Float) : Steerable<Vector2>{

@@ -11,6 +11,7 @@ class KeyboardController : InputProcessor{
     var up = false
     var space = false
 
+
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
@@ -30,19 +31,19 @@ class KeyboardController : InputProcessor{
     override fun keyUp(keycode: Int): Boolean {
         var keyProcessed = false
         when(keycode){
-            W -> {
+            UP -> {
                 up = false
                 keyProcessed = true
             }
-            S -> {
+            DOWN -> {
                 down = false
                 keyProcessed = true
             }
-            A -> {
+            LEFT -> {
                 left = false
                 keyProcessed = true
             }
-            D -> {
+            RIGHT -> {
                 right = false
                 keyProcessed = true
             }
@@ -57,19 +58,19 @@ class KeyboardController : InputProcessor{
     override fun keyDown(keycode: Int): Boolean {
         var keyProcessed = false
         when(keycode){
-            W -> {
+            UP -> {
                 up = true
                 keyProcessed = true
             }
-            S -> {
+            DOWN -> {
                 down = true
                 keyProcessed = true
             }
-            A -> {
+            LEFT -> {
                 left = true
                 keyProcessed = true
             }
-            D -> {
+            RIGHT -> {
                 right = true
                 keyProcessed = true
             }
@@ -80,6 +81,7 @@ class KeyboardController : InputProcessor{
         }
         return keyProcessed
     }
+
 
     override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
         return false

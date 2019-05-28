@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="industrial.v2.tsx"/>
  <layer id="1" name="Tile Layer 1" width="15" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjY2BgYKMAkwOw6SXWbFx60dmLCOgNZ8Q0C59/kNWyoYkRCgtcerGBRQyobqck/AmFIyG95AJK9RLCnEzYMTF+Gii9+DAAIUIE2Q==
+   eJxjY2BgYKMAkwOw6SXWbFx60dmLCOgNZ8Q0C59/kNWyoYkRCgtcerGBRQyobic2/A+iYXR7sbmJkF5iACV6cbmLEOZkwo4J2TuQevFhAH29DeU=
   </data>
  </layer>
  <objectgroup id="2" name="collisionLayer">

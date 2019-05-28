@@ -1,4 +1,4 @@
-package com.mygdx.game.entities
+package com.mygdx.game.entities.setup
 
 import com.badlogic.gdx.ai.utils.Location
 import com.badlogic.gdx.math.Vector2

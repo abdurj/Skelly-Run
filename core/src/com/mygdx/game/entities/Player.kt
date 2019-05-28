@@ -9,25 +9,56 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.mygdx.game.BodyFactory
 import com.mygdx.game.controller.KeyboardController
+import com.mygdx.game.entities.setup.SteeringEntity
 import com.mygdx.game.utils.*
 
-class Player(bodyFactory: BodyFactory, private val controller: KeyboardController, private val batch: SpriteBatch, val camera: OrthographicCamera){
+class Player(private val bodyFactory: BodyFactory, private val controller: KeyboardController, private val batch: SpriteBatch, val camera: OrthographicCamera){
 
     val texture = Texture("images/ichigo.png")
 
     val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, 14f, 14f, STONE, BodyDef.BodyType.DynamicBody, true)
-    val playerEntity = SteeringEntity(playerBody,10f)
+    val playerEntity = SteeringEntity(playerBody, 10f)
     var isSwimming = false
     var isJumping = false
     var doubleJump = false
+
+    var lastSpaceState = false
+    var spaceReleased = false
+
+    var activeBullet = false
+
+    var bullet: Bullet? = null
 
     init{
         playerBody.userData = "player"
     }
 
     fun update(){
+        spaceReleased = lastSpaceState == true && controller.space == false
         //gravityMove()
         omniMove()
+        bulletLogic()
+
+        lastSpaceState = controller.space
+
+    }
+
+    private fun bulletLogic() {
+        if(controller.space) {
+            if (!activeBullet) {
+                println("Created bullet")
+                bullet = Bullet(playerBody, 0.1f,1f, bodyFactory, controller)
+                activeBullet = true
+            } else {
+                bullet?.update(0f, 0.1f, playerBody)
+            }
+        }
+
+        if(spaceReleased){
+            bullet?.release()
+            println("can create new bullet")
+            activeBullet = false
+        }
     }
 
     fun move(vector2: Vector2){
@@ -99,6 +130,10 @@ class Player(bodyFactory: BodyFactory, private val controller: KeyboardControlle
         if(!controller.left && !controller.right){
             playerBody.linearVelocity = Vector2(0f, playerBody.linearVelocity.y)
         }
+    }
+
+    fun createBullet(){
+
     }
 
 }
