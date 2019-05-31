@@ -48,7 +48,7 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
     var spaceReleased = false
     var lastSpaceState = false
 
-    val enemy = Enemy(30f,100f,bodyFactory,batch,playerBody)
+    val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
 
     var enemies = ArrayList<Enemy>()
 

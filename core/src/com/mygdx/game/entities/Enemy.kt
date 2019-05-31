@@ -4,14 +4,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.utils.Timer
 import com.mygdx.game.BodyFactory
 import com.mygdx.game.utils.*
 
-class Enemy(private val x: Float,private val y: Float,private val bodyFactory: BodyFactory, private val batch: SpriteBatch, private val player: Body) {
+class Enemy(private val x: Float,private val y: Float,private val shootInterval: Float,private val bodyFactory: BodyFactory, private val batch: SpriteBatch, private val player: Body) {
 
     internal var health = 50f;
 
     internal val body = bodyFactory.makeBoxPolyBody(x,y,20f,20f, STONE,BodyDef.BodyType.DynamicBody,true)
+
+    internal var shooting = false
+
 
     init{
         body.userData = this
@@ -24,12 +28,17 @@ class Enemy(private val x: Float,private val y: Float,private val bodyFactory: B
     fun update(){
         if(!detectPlayer(50f,50f)){
             moveSideToSide(10f,10f)
+            shooting = false
         }
         else{
             body.linearVelocity = Vector2(0f,body.linearVelocity.y)
             println("In box Velocity: ${body.linearVelocity.x}")
-            shootBullets()
+            if(!shooting){
+                shootBullets()
+                shooting = true
+            }
         }
+
     }
 
     private fun detectPlayer(leftBound: Float, rightBound: Float): Boolean{
@@ -54,7 +63,11 @@ class Enemy(private val x: Float,private val y: Float,private val bodyFactory: B
     }
 
     private fun shootBullets(){
-
+        Timer.schedule(object: Timer.Task(){
+            override fun run() {
+                EnemyBullet(body,5f,5f,bodyFactory)
+            }
+        },0f,1f)
     }
 
 }

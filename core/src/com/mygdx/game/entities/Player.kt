@@ -16,7 +16,9 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     val texture = Texture("images/ichigo.png")
 
-    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, 14f, 14f, STONE, BodyDef.BodyType.DynamicBody, true)
+    val width = 14f
+    val height = 14f
+    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, width, height, STONE, BodyDef.BodyType.DynamicBody, true)
     val playerEntity = SteeringEntity(playerBody, 10f)
     var isSwimming = false
     var isJumping = false
@@ -69,8 +71,8 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
 
     fun drawPlayer(){
-        val xPos = playerBody.position.x * PPM - (0.43f*PPM / 2f)
-        val yPos = playerBody.position.y * PPM - (0.43f*PPM / 2f)
+        val xPos = playerBody.position.x * PPM - (width / 2f)
+        val yPos = playerBody.position.y * PPM - (height / 2f)
 
         batch.draw(texture,xPos,yPos,14f,14f)
     }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.Fixture
 import com.mygdx.game.entities.Bullet
 import com.mygdx.game.entities.Enemy
+import com.mygdx.game.entities.EnemyBullet
 import com.mygdx.game.entities.Player
 
 
@@ -88,8 +89,18 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
                 }
                 bullet.body.userData = "delete"
             }
+        }
+        if(userDataA is EnemyBullet || userDataB is EnemyBullet){
+            val bullet = if(userDataA is EnemyBullet) userDataA else userDataB as EnemyBullet
+            if(userDataA is Player || userDataB is Player){
+                val player = if(userDataA is Player) userDataA else userDataB as Player
+                player.health -= bullet.damage
 
-
+                if(player.health < 0){
+                    player.playerBody.userData = "playerDelete"
+                }
+            }
+            bullet.body.userData = "delete"
         }
 
 
