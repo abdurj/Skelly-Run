@@ -9,19 +9,21 @@ import com.badlogic.gdx.physics.box2d.World
 import com.mygdx.game.B2DModel
 import com.mygdx.game.BodyFactory
 import com.mygdx.game.controller.KeyboardController
+import com.mygdx.game.utils.LOW_FRIC
 import com.mygdx.game.utils.PPM
 import com.mygdx.game.utils.STONE
 
 class Bullet(private var player: Body,private var width: Float, private var height: Float, private val bodyFactory: BodyFactory, private val controller: KeyboardController){
     internal var damage = 0f
     var shot = false
-    val body = bodyFactory.makeBoxPolyBody(player.position.x + 16/ PPM, player.position.y, width, height, STONE)
+    val body = bodyFactory.makeBoxPolyBody(player.position.x + 16/ PPM, player.position.y, width, height, LOW_FRIC)
     val maxWidth = 10f;
     val maxHeight = 10f;
 
-
     init{
+        body.isBullet = true
         body.userData = this
+        body.gravityScale = 0.1f
     }
 
     fun update(widthIncrement: Float,heightIncrement: Float,player: Body){
@@ -39,7 +41,8 @@ class Bullet(private var player: Body,private var width: Float, private var heig
     }
 
     private fun chargeBullet(widthIncrement: Float, heightIncrement: Float){
-        println("Charging bullet")
+        shot = false
+        //println("Charging bullet")
         body.destroyFixture(body.fixtureList.first())
         val shape = PolygonShape()
         if(width<maxWidth && height < maxHeight){

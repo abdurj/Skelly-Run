@@ -3,11 +3,13 @@ package com.mygdx.game
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.Fixture
 import com.mygdx.game.entities.Bullet
+import com.mygdx.game.entities.Enemy
+import com.mygdx.game.entities.Player
 
 
 class B2DContactListener(private val parent: B2DModel) : ContactListener{
 
-    val player = parent.player
+    private val player = parent.player
 
     override fun endContact(contact: Contact) {
         val fa = contact.fixtureA
@@ -66,10 +68,28 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
 
         //println("${userDataA} USERDATA A, ${userDataB} USERDATA B")
         if(userDataA is Bullet || userDataB is Bullet){
-            val bullet = if(userDataA is Bullet) userDataA as Bullet else userDataB as Bullet
+            val bullet = if(userDataA is Bullet) userDataA else userDataB as Bullet
 
-            println("bong")
-            print(bullet.damage)
+            if(bullet.shot) {
+                if (userDataA is Enemy || userDataB is Enemy) {
+                    val enemy = if (userDataA is Enemy) userDataA else userDataB as Enemy
+                    enemy.subtractHealth(bullet.damage)
+                    if (enemy.health < 0) {
+                        enemy.body.userData = "delete"
+                    }
+                    println(enemy.health)
+                }
+                if(userDataA is Player || userDataB is Player){
+                    val player = if(userDataA is Player) userDataA else userDataB as Player
+                    player.health -= bullet.damage
+                    if(player.health < 0){
+                        player.playerBody.userData = "playerDelete"
+                    }
+                }
+                bullet.body.userData = "delete"
+            }
+
+
         }
 
 

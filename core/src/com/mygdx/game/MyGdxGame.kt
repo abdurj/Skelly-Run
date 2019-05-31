@@ -30,6 +30,8 @@ class MyGdxGame : ApplicationAdapter() {
         camera = OrthographicCamera()
         camera.setToOrtho(false, width / SCALE, height / SCALE)
 
+        //camera.zoom = camera.zoom * 0.2f
+
         model = B2DModel(controller,camera)
 
         b2dr = Box2DDebugRenderer(true,true,true,true,true,true)

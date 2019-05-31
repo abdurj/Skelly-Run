@@ -11,3 +11,5 @@ const val LOW_FRIC = 5
 
 const val MAX_X_VELOCITY = 5
 const val MAX_Y_VELOCITY = 6
+
+const val MAX_ENEMY_X_VELOCITY = 1f

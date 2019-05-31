@@ -29,14 +29,16 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     var bullet: Bullet? = null
 
+    var health = 20f
+
     init{
-        playerBody.userData = "player"
+        playerBody.userData = this
     }
 
     fun update(){
         spaceReleased = lastSpaceState == true && controller.space == false
-        //gravityMove()
-        omniMove()
+        gravityMove()
+        //omniMove()
         bulletLogic()
 
         lastSpaceState = controller.space
@@ -47,7 +49,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         if(controller.space) {
             if (!activeBullet) {
                 println("Created bullet")
-                bullet = Bullet(playerBody, 0.1f,1f, bodyFactory, controller)
+                bullet = Bullet(playerBody, 3f,1f, bodyFactory, controller)
                 activeBullet = true
             } else {
                 bullet?.update(0f, 0.1f, playerBody)
