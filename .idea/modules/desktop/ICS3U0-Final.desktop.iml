@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
   <component name="ExternalSystem" externalSystem="GRADLE" externalSystemModuleGroup="ICS3U0-Final" externalSystemModuleVersion="1.0" linkedProjectId=":desktop" linkedProjectPath="$MODULE_DIR$/../../../desktop" rootProjectPath="$MODULE_DIR$/../../.." />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../desktop">
+      <excludeFolder url="file://$MODULE_DIR$/../../../desktop/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../desktop/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../desktop/out" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
 </module>
