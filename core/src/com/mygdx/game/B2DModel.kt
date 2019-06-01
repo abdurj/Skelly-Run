@@ -50,7 +50,7 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
 
     val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
 
-    var enemies = ArrayList<Enemy>()
+    var enemies = Array<Enemy>()
 
 
     init {
@@ -81,9 +81,17 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
         logicStep(deltaTime)
 
         player.update()
-        for(enemy in enemies){
-            enemy.update()
+        for(x in 0 until enemies.size){
+            var enemy = enemies[x]
+            if(enemy.body.userData != null){
+                enemy.update()
+            }
+            else{
+                enemy.shoot.cancel()
+                enemies.removeIndex(x)
+            }
         }
+
         cameraStep(deltaTime)
 
         target.update(deltaTime)

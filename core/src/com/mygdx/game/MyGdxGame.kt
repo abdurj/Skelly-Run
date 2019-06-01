@@ -28,7 +28,8 @@ class MyGdxGame : ApplicationAdapter() {
         val height = Gdx.graphics.height.toFloat()
 
         camera = OrthographicCamera()
-        camera.setToOrtho(false, width / SCALE, height / SCALE)
+        camera.setToOrtho(false, width/ SCALE, height/ SCALE)
+        camera.zoom = camera.zoom * 0.4f
 
         //camera.zoom = camera.zoom * 0.2f
 

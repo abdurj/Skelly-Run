@@ -6,32 +6,6 @@
    eJxjY2BgYKMAkwOw6SXWbFx60dmLCOgNZ8Q0C59/kNWyoYkRCgtcerGBRQyobic2/A+iYXR7sbmJkF5iACV6cbmLEOZkwo4J2TuQevFhAH29DeU=
   </data>
  </layer>
- <objectgroup id="2" name="collisionLayer">
-  <object id="3" x="0" y="176">
-   <polyline points="0,0 128,0"/>
-  </object>
-  <object id="4" x="128" y="224">
-   <polyline points="0,0 96,0"/>
-  </object>
-  <object id="5" x="144" y="48">
-   <polyline points="0,0 -16,0"/>
-  </object>
-  <object id="6" x="112" y="48">
-   <polyline points="0,0 -32,0"/>
-  </object>
-  <object id="11" x="80" y="128">
-   <polyline points="0,0 -64,0"/>
-  </object>
-  <object id="12" x="128" y="96">
-   <polyline points="0,0 -48,0"/>
-  </object>
-  <object id="13" x="160" y="96">
-   <polyline points="0,0 32,0"/>
-  </object>
-  <object id="14" x="144" y="48">
-   <polyline points="0,0 16,0"/>
-  </object>
- </objectgroup>
  <objectgroup id="3" name="noFricLayer">
   <object id="15" x="224" y="224">
    <polyline points="0,0 0,-208 -208,-208 -208,-80 -224,-80"/>
@@ -86,6 +60,32 @@
   </object>
   <object id="38" x="48" y="112">
    <polyline points="0,0 16,0 16,-32 0,-32 -16,-32"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="2" name="collisionLayer" offsetx="0" offsety="-1">
+  <object id="3" x="0" y="176">
+   <polyline points="0,0 128,0"/>
+  </object>
+  <object id="4" x="128" y="224">
+   <polyline points="0,0 96,0"/>
+  </object>
+  <object id="5" x="144" y="48">
+   <polyline points="0,0 -16,0"/>
+  </object>
+  <object id="6" x="112" y="48">
+   <polyline points="0,0 -32,0"/>
+  </object>
+  <object id="11" x="80" y="128">
+   <polyline points="0,0 -64,0"/>
+  </object>
+  <object id="12" x="128" y="96">
+   <polyline points="0,0 -48,0"/>
+  </object>
+  <object id="13" x="160" y="96">
+   <polyline points="0,0 32,0"/>
+  </object>
+  <object id="14" x="144" y="48">
+   <polyline points="0,0 16,0"/>
   </object>
  </objectgroup>
 </map>

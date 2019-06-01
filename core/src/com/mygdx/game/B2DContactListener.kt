@@ -46,7 +46,7 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
         val userDataA = bodyA.userData
         val userDataB = bodyB.userData
 
-        //println("${fixtureA.body.userData} has hit ${fixtureB.body.userData}")
+        println("${fA.body.userData} has hit ${fB.body.userData}")
 
         if(userDataB == "water" && userDataA == "player"){
             player.isSwimming = true
@@ -100,7 +100,7 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
                     player.playerBody.userData = "playerDelete"
                 }
             }
-            println("${fA.body.userData} A, ${fB.body.userData}")
+            //println("${fA.body.userData} A, ${fB.body.userData}")
             bullet.body.userData = "delete"
         }
 

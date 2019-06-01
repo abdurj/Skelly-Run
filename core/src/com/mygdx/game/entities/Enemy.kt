@@ -10,7 +10,7 @@ import com.mygdx.game.utils.*
 
 class Enemy(private val x: Float,private val y: Float,private val shootInterval: Float,private val bodyFactory: BodyFactory, private val batch: SpriteBatch, private val player: Body) {
 
-    internal var health = 50f;
+    internal var health = 10f;
 
     internal val body = bodyFactory.makeBoxPolyBody(x,y,20f,20f, STONE,BodyDef.BodyType.DynamicBody,true)
 
@@ -51,7 +51,6 @@ class Enemy(private val x: Float,private val y: Float,private val shootInterval:
                 notShooting = false
             }
         }
-
     }
 
     private fun detectPlayer(leftBound: Float, rightBound: Float): Boolean{
