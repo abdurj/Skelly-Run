@@ -39,6 +39,7 @@ class MyGdxGame : ApplicationAdapter() {
         batch = SpriteBatch()
 
         camera = OrthographicCamera()
+        camera.zoom *= 0.5f
         camera.setToOrtho(false, width / SCALE, height / SCALE)
 
         model = B2DModel(controller,camera)
@@ -88,7 +89,7 @@ class MyGdxGame : ApplicationAdapter() {
         model.batch.dispose()
         model.tmr.dispose()
         model.map.dispose()
-        model.player.texture.dispose()
+        //model.player.texture.dispose()
         music.dispose()
         b2dr.dispose()
     }

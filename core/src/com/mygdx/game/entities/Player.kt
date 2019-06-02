@@ -3,22 +3,44 @@ package com.mygdx.game.entities
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.mygdx.game.BodyFactory
 import com.mygdx.game.controller.KeyboardController
 import com.mygdx.game.entities.setup.SteeringEntity
 import com.mygdx.game.utils.*
+import com.mygdx.game.entities.State.*
 
-class Player(private val bodyFactory: BodyFactory, private val controller: KeyboardController, private val batch: SpriteBatch, val camera: OrthographicCamera){
+enum class State{
+    FALLING,
+    JUMPING,
+    CHARGING,
+    SHOOTING,
+    MOVING_LEFT,
+    MOVING_RIGHT,
+    STANDING
+}
 
-    val texture = Texture("images/ichigo.png")
+class Player(private val bodyFactory: BodyFactory, private val controller: KeyboardController, private val atlas: TextureAtlas, val camera: OrthographicCamera){
 
-    val width = 14f
-    val height = 14f
-    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, width, height, STONE, BodyDef.BodyType.DynamicBody, true)
+    private val region = atlas.findRegion("GXM00")
+
+    private val texture = TextureRegion(region, 64,64,32,32)
+
+    private val sprite: Sprite
+
+    var playerState: State = STANDING
+
+    // internal val texture = Texture("images/ichigo.png")
+
+    private val w = 14f
+    private val h = 14f
+
+    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, w, h, STONE, BodyDef.BodyType.DynamicBody, true)
     val playerEntity = SteeringEntity(playerBody, 10f)
     var isSwimming = false
     var isJumping = false
@@ -36,24 +58,38 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     var health = 20f
 
     init{
+        sprite = Sprite(texture)
+        sprite.setSize(w,h)
         playerBody.userData = this
     }
 
     fun update(){
+        playerState = STANDING
         if (controller.left){
             right = false
+            playerState = MOVING_LEFT
         }
         if (controller.right){
             right = true
+            playerState = MOVING_RIGHT
         }
 
         spaceReleased = lastSpaceState == true && controller.space == false
         gravityMove()
         //omniMove()
+
+        if(playerBody.linearVelocity.y > 0.1){
+            playerState = JUMPING
+        }
+        if(playerBody.linearVelocity.y < -0.1){
+            playerState = FALLING
+        }
+
         bulletLogic()
 
         lastSpaceState = controller.space
 
+        println("State: ${playerState.name}")
     }
 
     private fun bulletLogic() {
@@ -65,12 +101,14 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             } else {
                 bullet?.update(0f, 0.1f, playerBody)
             }
+            playerState = CHARGING
         }
 
         if(spaceReleased){
             bullet?.release()
             println("can create new bullet")
             activeBullet = false
+            playerState = SHOOTING
         }
     }
 
@@ -79,11 +117,13 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     }
 
 
-    fun drawPlayer(){
-        val xPos = playerBody.position.x * PPM - (width / 2f)
-        val yPos = playerBody.position.y * PPM - (height / 2f)
+    fun drawPlayer(batch: SpriteBatch){
+        val xPos = playerBody.position.x * PPM - (w / 2f)
+        val yPos = playerBody.position.y * PPM - (h / 2f)
 
-        batch.draw(texture,xPos,yPos,14f,14f)
+        sprite.setPosition(xPos,yPos)
+
+        sprite.draw(batch)
     }
 
     fun gravityMove(){
@@ -145,8 +185,5 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         }
     }
 
-    fun createBullet(){
-
-    }
 
 }

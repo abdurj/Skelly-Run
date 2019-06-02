@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.ai.steer.behaviors.Arrive
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
@@ -24,13 +25,15 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
     //val world: World = World(Vector2(0f,0f),true)
     private val bodyFactory = BodyFactory(world)
 
+    private val atlas = TextureAtlas("character_sprites/Player.pack")
+
     val map: TiledMap = TmxMapLoader().load("maps/map2.tmx")
 
     val tmr: OrthogonalTiledMapRenderer = OrthogonalTiledMapRenderer(map)
 
     val batch = SpriteBatch()
 
-    val player = Player(bodyFactory, controller, batch, camera)
+    val player = Player(bodyFactory, controller, atlas, camera)
     private val playerBody = player.playerBody
     private val target = player.playerEntity
 
@@ -42,7 +45,7 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
     var activeBullet = false
     var bullet:Bullet? = null
 
-    //var width = 1f
+    //var w = 1f
     var height = 1f
 
     var spaceReleased = false
@@ -110,7 +113,7 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
 
     private fun batchUpdate(){
         batch.begin()
-        player.drawPlayer()
+        player.drawPlayer(batch)
         batch.end()
     }
 
@@ -134,7 +137,7 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
                 else if(data == "playerDelete"){
                     world.destroyBody(body)
                     body?.userData = null
-                    player.texture.dispose()
+                    //player.texture.dispose()
                 }
             } }
     }
