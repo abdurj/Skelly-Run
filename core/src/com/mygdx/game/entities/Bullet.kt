@@ -13,14 +13,22 @@ import com.mygdx.game.utils.LOW_FRIC
 import com.mygdx.game.utils.PPM
 import com.mygdx.game.utils.STONE
 
-class Bullet(private var player: Body,private var width: Float, private var height: Float, private val bodyFactory: BodyFactory, private val controller: KeyboardController){
+class Bullet(private var player: Body,private var width: Float, private var height: Float, private val bodyFactory: BodyFactory, private val controller: KeyboardController, private var right: Boolean){
     internal var damage = 0f
     var shot = false
-    val body = bodyFactory.makeBoxPolyBody(player.position.x + 16/ PPM, player.position.y, width, height, LOW_FRIC)
     val maxWidth = 10f;
     val maxHeight = 10f;
 
+    val body: Body
+
     init{
+        if(right){
+            body = bodyFactory.makeBoxPolyBody(player.position.x + 16/ PPM, player.position.y, width, height, LOW_FRIC)
+
+        }
+        else{
+            body = bodyFactory.makeBoxPolyBody(player.position.x - 16/ PPM, player.position.y, width, height, LOW_FRIC)
+        }
         body.isBullet = true
         body.userData = this
         body.gravityScale = 0.1f
@@ -30,14 +38,29 @@ class Bullet(private var player: Body,private var width: Float, private var heig
         if(controller.space) {
             chargeBullet(widthIncrement, heightIncrement)
         }
+        if(controller.left){
+            println("left")
+            right = false
+        }
+        if(controller.right){
+            println("right")
+            right = true
+        }
         setPosition(player)
         damage = height
     }
 
     fun release() {
-        println("bang")
-        body.applyLinearImpulse(Vector2(0.1f,0f),body.position,true)
-        shot = true
+        if (right) {
+            println("bang right")
+            body.applyLinearImpulse(Vector2(0.1f, 0f), body.position, true)
+            shot = true
+        }
+        else{
+            println("bang left")
+            body.applyLinearImpulse(Vector2(-0.1f, 0f), body.position, true)
+            shot = true
+        }
     }
 
     private fun chargeBullet(widthIncrement: Float, heightIncrement: Float){
@@ -60,7 +83,12 @@ class Bullet(private var player: Body,private var width: Float, private var heig
     }
 
     private fun setPosition(player:Body){
-        body.setTransform(player.position.x + 16/ PPM, player.position.y, body.angle)
+        if (right) {
+            body.setTransform(player.position.x + 16 / PPM, player.position.y, body.angle)
+        }
+        else{
+            body.setTransform(player.position.x - 16 / PPM, player.position.y, body.angle)
+        }
     }
 
 

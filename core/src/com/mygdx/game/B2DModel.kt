@@ -22,7 +22,7 @@ import com.mygdx.game.utils.*
 class B2DModel(private val controller: KeyboardController, private val camera: OrthographicCamera) {
     val world: World = World(Vector2(0f,-9.8f),true)
     //val world: World = World(Vector2(0f,0f),true)
-    internal val bodyFactory = BodyFactory(world)
+    private val bodyFactory = BodyFactory(world)
 
     val map: TiledMap = TmxMapLoader().load("maps/map2.tmx")
 
@@ -48,7 +48,7 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
     var spaceReleased = false
     var lastSpaceState = false
 
-    val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
+    private val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
 
     var enemies = Array<Enemy>()
 
