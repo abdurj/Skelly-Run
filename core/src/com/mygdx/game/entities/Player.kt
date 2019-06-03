@@ -18,6 +18,7 @@ import com.mygdx.game.entities.State.*
 enum class State{
     FALLING,
     JUMPING,
+    DOUBLE_JUMPING,
     CHARGING,
     SHOOTING,
     MOVING_LEFT,
@@ -33,7 +34,10 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     private val sprite: Sprite
 
-    var playerState: State = STANDING
+    var currentPlayerState: State = STANDING
+    var previousPlayerState: State = FALLING
+    var lastPlayerState = FALLING
+    var changeState = false
 
     // internal val texture = Texture("images/ichigo.png")
 
@@ -60,36 +64,48 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     init{
         sprite = Sprite(texture)
         sprite.setSize(w,h)
+        playerBody.angularDamping = 100f
         playerBody.userData = this
     }
 
     fun update(){
-        playerState = STANDING
+
+        currentPlayerState = STANDING
+
         if (controller.left){
             right = false
-            playerState = MOVING_LEFT
+            currentPlayerState = MOVING_LEFT
         }
         if (controller.right){
             right = true
-            playerState = MOVING_RIGHT
+            currentPlayerState = MOVING_RIGHT
         }
 
         spaceReleased = lastSpaceState == true && controller.space == false
         gravityMove()
         //omniMove()
 
-        if(playerBody.linearVelocity.y > 0.1){
-            playerState = JUMPING
+        if(playerBody.linearVelocity.y > 0.1 && isJumping){
+            currentPlayerState = JUMPING
+        }
+        else if(doubleJump){
+            currentPlayerState = DOUBLE_JUMPING
         }
         if(playerBody.linearVelocity.y < -0.1){
-            playerState = FALLING
+            currentPlayerState = FALLING
         }
 
         bulletLogic()
 
         lastSpaceState = controller.space
 
-        println("State: ${playerState.name}")
+        if(previousPlayerState != currentPlayerState) {
+            lastPlayerState = previousPlayerState
+        }
+
+        previousPlayerState = currentPlayerState
+
+        println("State: $currentPlayerState Last State: $lastPlayerState")
     }
 
     private fun bulletLogic() {
@@ -101,14 +117,14 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             } else {
                 bullet?.update(0f, 0.1f, playerBody)
             }
-            playerState = CHARGING
+            currentPlayerState = CHARGING
         }
 
         if(spaceReleased){
             bullet?.release()
             println("can create new bullet")
             activeBullet = false
-            playerState = SHOOTING
+            currentPlayerState = SHOOTING
         }
     }
 
