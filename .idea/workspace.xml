@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59d31bf7-8a2f-49be-b6f2-641b4ec467e2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/DeadState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/MyGdxGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/MyGdxGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/entities/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/entities/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DContactListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DContactListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowToState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowToState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/PlayState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/PlayState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DContactListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DContactListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DModel.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -184,52 +176,13 @@
             <path>
               <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
               <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
               <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="states" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ICS3U0-Final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ICS3U0-Final" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -358,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559555990244</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="added respawn">
+      <created>1559617952285</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1559617952285</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -372,14 +332,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.17382617" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.17382617" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32997987" />
       <window_info anchor="bottom" id="Messages" order="1" weight="0.3279678" />
@@ -389,7 +348,7 @@
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.32897383" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.32595575" />
+      <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.32595575" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.39839035" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
@@ -448,7 +407,8 @@
     <MESSAGE value="fixed errors" />
     <MESSAGE value="changed player to be drawn using a sprite" />
     <MESSAGE value="Added player states" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added player states" />
+    <MESSAGE value="added respawn" />
+    <option name="LAST_COMMIT_MESSAGE" value="added respawn" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.9.9/9b11e9ddbd49e416b37396451965412ca03021bc/gdx-box2d-1.9.9-sources.jar!/com/badlogic/gdx/physics/box2d/World.java">

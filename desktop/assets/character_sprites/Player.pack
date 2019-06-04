@@ -1,0 +1,19 @@
+
+Player.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+GXM00-3
+  rotate: false
+  xy: 1, 1
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+GXM00
+  rotate: false
+  xy: 131, 1
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
