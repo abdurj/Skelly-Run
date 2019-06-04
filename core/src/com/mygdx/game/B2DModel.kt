@@ -92,7 +92,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
         logicStep(deltaTime)
 
-        player.update()
+        player.update(deltaTime)
         for(x in 0 until enemies.size){
             var enemy = enemies[x]
             if(enemy.body.userData != null){

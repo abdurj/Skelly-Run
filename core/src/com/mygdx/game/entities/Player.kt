@@ -3,12 +3,10 @@ package com.mygdx.game.entities
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.g2d.*
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.utils.Array
 import com.mygdx.game.BodyFactory
 import com.mygdx.game.controller.KeyboardController
 import com.mygdx.game.entities.setup.SteeringEntity
@@ -32,13 +30,14 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     private val texture = TextureRegion(region, 64,64,32,32)
 
+    private val idleFrames =  Array<TextureRegion>()
+
     private val sprite: Sprite
 
     var currentPlayerState: State = STANDING
     var previousPlayerState: State = FALLING
     var lastPlayerState = FALLING
 
-    // internal val texture = Texture("images/ichigo.png")
 
     private val w = 14f
     private val h = 14f
@@ -58,16 +57,38 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     var right = false
 
+    private var stateTimer = 0f
+
     var health = 100f
 
+    private val idleAnimation: Animation<TextureRegion>
+
     init{
+
         sprite = Sprite(texture)
+
+        idleFrames.add(TextureRegion(region,0,0,32,32))
+        idleFrames.add(TextureRegion(region,32,0,32,32))
+        idleFrames.add(TextureRegion(region,64,0,32,32))
+        idleFrames.add(TextureRegion(region,0,32,32,32))
+        idleFrames.add(TextureRegion(region,32,32,32,32))
+        idleFrames.add(TextureRegion(region,64,32,32,32))
+        idleFrames.add(TextureRegion(region,0,64,32,32))
+        idleFrames.add(TextureRegion(region,32,64,32,32))
+        idleFrames.add(TextureRegion(region,64,64,32,32))
+
+
+
+        idleAnimation = Animation(0.2f,idleFrames)
+
+
         sprite.setSize(w,h)
         playerBody.angularDamping = 100f
         playerBody.userData = this
     }
 
-    fun update(){
+    fun update(dt: Float){
+
 
         currentPlayerState = STANDING
 
@@ -102,9 +123,49 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             lastPlayerState = previousPlayerState
         }
 
+        sprite.setRegion(getFrame(dt))
+
         previousPlayerState = currentPlayerState
 
-        println("State: $currentPlayerState Last State: $lastPlayerState")
+        //println("State: $currentPlayerState Last State: $lastPlayerState")
+    }
+
+    private fun getFrame(dt: Float): TextureRegion {
+        var region: TextureRegion
+
+        when(currentPlayerState){
+            STANDING  -> {
+                region = idleAnimation.getKeyFrame(stateTimer)
+            }
+            //FALLING -> TODO()
+            //JUMPING -> TODO()
+            //DOUBLE_JUMPING -> TODO()
+            //CHARGING -> TODO()
+            //SHOOTING -> TODO()
+            //MOVING_LEFT -> TODO()
+            //MOVING_RIGHT -> TODO()
+            else -> {
+                region = TextureRegion(this.region,64,64,32,32)
+            }
+
+        }
+
+        //println("Current player state $currentPlayerState Previous state $previousPlayerState")
+
+        if(currentPlayerState == previousPlayerState){
+            if(stateTimer > idleAnimation.frameDuration * idleFrames.size){
+                stateTimer = 0f
+            }
+            stateTimer += dt
+        }
+        else{
+            stateTimer = 0f
+        }
+        return region
+    }
+
+    private fun getState(): State {
+        return currentPlayerState
     }
 
     private fun bulletLogic() {
