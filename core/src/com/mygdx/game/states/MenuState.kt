@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.mygdx.game.B2DModel
 
-class MenuState(gsm: GameStateManager) : State(gsm) {
+class MenuState(gsm: GameStateManager, val model: B2DModel) : State(gsm) {
     private val background: Texture
     private val playButton: Texture
     private val howToPlay: Texture
@@ -19,11 +20,11 @@ class MenuState(gsm: GameStateManager) : State(gsm) {
 
     public override fun handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            gsm.set(PlayState(gsm))
+            gsm.set(PlayState(gsm, model))
             dispose()
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            gsm.set(HowToState(gsm))
+            gsm.set(HowToState(gsm,model))
             dispose()
         }
 

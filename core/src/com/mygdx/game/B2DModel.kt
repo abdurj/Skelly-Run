@@ -20,7 +20,7 @@ import com.mygdx.game.entities.Player
 import com.mygdx.game.entities.setup.SteeringEntity
 import com.mygdx.game.utils.*
 
-class B2DModel(private val controller: KeyboardController, private val camera: OrthographicCamera) {
+class B2DModel(val controller: KeyboardController, val camera: OrthographicCamera) {
     val world: World = World(Vector2(0f,-9.8f),true)
     //val world: World = World(Vector2(0f,0f),true)
     private val bodyFactory = BodyFactory(world)
@@ -33,9 +33,8 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
 
     val batch = SpriteBatch()
 
-    val player = Player(bodyFactory, controller, atlas, camera)
+    var player = Player(bodyFactory, controller, atlas, camera)
     private val playerBody = player.playerBody
-    private val target = player.playerEntity
 
     //private val follower = bodyFactory.makeCirclePolyBody(30f,100f,15f, STONE)
     //private val entity = SteeringEntity(follower, 15f)
@@ -51,17 +50,13 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
     var spaceReleased = false
     var lastSpaceState = false
 
-    private val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
-
     var enemies = Array<Enemy>()
 
 
     init {
-        world.setContactListener(B2DContactListener(this))
+        initEnemies()
 
-        //playerBody
-        val floor = bodyFactory.makeBoxPolyBody(0f, 32f, 150f, 1f, STONE, BodyDef.BodyType.StaticBody, true)
-        floor.userData = "MainPlat"
+        world.setContactListener(B2DContactListener(this))
 
         bodyFactory.makeAllFixturesSensors(water)
         water.userData = "water"
@@ -69,14 +64,28 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
 
-        enemies.add(enemy)
+    }
 
-/*
-        val arriveSB = Arrive<Vector2>(entity,target)
-                .setArrivalTolerance(2f)
-                .setDecelerationRadius(10f)
-        entity.setBehaviour(arriveSB)
-  */  }
+    fun initEnemies(){
+        for(enemy in enemies){
+            enemy.body.userData = "delete"
+            enemy.shoot.cancel()
+        }
+        enemies.clear()
+
+        val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
+        val enemy2 = Enemy(90f,100f,500f,bodyFactory,batch,playerBody)
+
+        enemies.add(enemy)
+        enemies.add(enemy2)
+    }
+
+    fun initPlayer(){
+        player.playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),0f)
+
+        player.health = 100f
+    }
+
 
     fun update(deltaTime: Float){
 
@@ -97,9 +106,6 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
 
         cameraStep(deltaTime)
 
-        target.update(deltaTime)
-        //entity.update(deltaTime)
-
         batch.projectionMatrix = camera.combined
         tmr.setView(camera)
 
@@ -118,6 +124,11 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
     }
 
     private fun logicStep(deltaTime: Float){
+        if(player.playerBody.position.y * PPM < -500){
+            player.health -= 100
+        }
+
+
         world.step(deltaTime,6,2)
         sweepDeadBodies()
     }
@@ -133,11 +144,6 @@ class B2DModel(private val controller: KeyboardController, private val camera: O
                 if (data == "delete") {
                     world.destroyBody(body)
                     body?.userData = null
-                }
-                else if(data == "playerDelete"){
-                    world.destroyBody(body)
-                    body?.userData = null
-                    //player.texture.dispose()
                 }
             } }
     }

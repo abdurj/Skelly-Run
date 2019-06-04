@@ -37,7 +37,6 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     var currentPlayerState: State = STANDING
     var previousPlayerState: State = FALLING
     var lastPlayerState = FALLING
-    var changeState = false
 
     // internal val texture = Texture("images/ichigo.png")
 
@@ -59,7 +58,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     var right = false
 
-    var health = 20f
+    var health = 100f
 
     init{
         sprite = Sprite(texture)

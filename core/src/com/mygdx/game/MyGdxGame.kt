@@ -20,7 +20,7 @@ const val SCALE: Float = 2.0f
 class MyGdxGame : ApplicationAdapter() {
 
     //World, Camera, Renderer
-    private lateinit var model: B2DModel
+    private var model: B2DModel? = null
     private lateinit var b2dr: Box2DDebugRenderer
     private lateinit var camera: OrthographicCamera
     private lateinit var music: Music
@@ -51,7 +51,7 @@ class MyGdxGame : ApplicationAdapter() {
         music.setVolume(0.1f)
         music.play()
 
-        gsm.push(MenuState(gsm))
+        gsm.push(MenuState(gsm, model!!))
 
     }
 
@@ -60,15 +60,15 @@ class MyGdxGame : ApplicationAdapter() {
 
         Gdx.input.inputProcessor = controller
 
-        model.update(Gdx.graphics.deltaTime)
+        model?.update(Gdx.graphics.deltaTime)
 
         batch.begin()
         batch.draw(background, 0f, 0f, 720f, 480f)
         batch.end()
 
-        model.render()
+        model?.render()
 
-        b2dr.render(model.world,camera.combined.scl(PPM))
+        b2dr.render(model?.world,camera.combined.scl(PPM))
 
         gsm.update(Gdx.graphics.getDeltaTime())
         gsm.render(batch)
@@ -76,7 +76,7 @@ class MyGdxGame : ApplicationAdapter() {
 
 
     fun update(deltaTime: Float){
-        model.update(deltaTime)
+        model?.update(deltaTime)
     }
 
 
@@ -85,10 +85,10 @@ class MyGdxGame : ApplicationAdapter() {
     }
 
     override fun dispose() {
-        model.world.dispose()
-        model.batch.dispose()
-        model.tmr.dispose()
-        model.map.dispose()
+        model?.world?.dispose()
+        model?.batch?.dispose()
+        model?.tmr?.dispose()
+        model?.map?.dispose()
         //model.player.texture.dispose()
         music.dispose()
         b2dr.dispose()

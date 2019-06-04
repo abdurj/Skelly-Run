@@ -95,16 +95,11 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
             val bullet = if(userDataA is EnemyBullet) userDataA else userDataB as EnemyBullet
             if(userDataA is Player || userDataB is Player){
                 val player = if(userDataA is Player) userDataA else userDataB as Player
-                //player.health -= bullet.damage
-                if(player.health < 0){
-                    player.playerBody.userData = "playerDelete"
-                }
+                player.health -= bullet.damage
             }
             //println("${fA.body.userData} A, ${fB.body.userData}")
             bullet.body.userData = "delete"
         }
-
-
 
     }
 
