@@ -16,6 +16,7 @@ class Enemy(private val x: Float,private val y: Float,private val shootInterval:
 
     internal var notShooting = false
 
+    //Timer task the shoots the bullet at the player based on their position
     val shoot = object: Timer.Task() {
         override fun run() {
             println("shot")
@@ -53,6 +54,7 @@ class Enemy(private val x: Float,private val y: Float,private val shootInterval:
         }
     }
 
+    //Check if a player is within left and right bounds
     private fun detectPlayer(leftBound: Float, rightBound: Float): Boolean{
         //println("Player position: ${player.position.x*PPM} LeftBound: ${body.position.x* PPM - leftBound} RightBound: ${body.position.x* PPM + rightBound}")
         val xPlayerDetected = player.position.x * PPM < body.position.x * PPM + rightBound && player.position.x * PPM > body.position.x * PPM - leftBound
@@ -60,6 +62,7 @@ class Enemy(private val x: Float,private val y: Float,private val shootInterval:
         return xPlayerDetected && yPlayerDetected
     }
 
+    //Move side to side within the left and right bounds
     private fun moveSideToSide(leftBound: Float, rightBound: Float){
         //println("BodyPosition: ${body.position.x * PPM} LeftBound: ${x - leftBound} RightBound: ${x + rightBound}")
         if(body.position.x * PPM > x + rightBound){
@@ -79,6 +82,7 @@ class Enemy(private val x: Float,private val y: Float,private val shootInterval:
             }
     }
 
+    //Schedule bullet shooting to happen once every second
     private fun shootBullets(){
         Timer.schedule(shoot,0f,1f)
     }

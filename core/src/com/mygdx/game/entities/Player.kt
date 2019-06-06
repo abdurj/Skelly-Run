@@ -67,6 +67,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
         sprite = Sprite(texture)
 
+        //Add all frames of player animation to the array
         idleFrames.add(TextureRegion(region,0,0,32,32))
         idleFrames.add(TextureRegion(region,32,0,32,32))
         idleFrames.add(TextureRegion(region,64,0,32,32))
@@ -77,8 +78,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         idleFrames.add(TextureRegion(region,32,64,32,32))
         idleFrames.add(TextureRegion(region,64,64,32,32))
 
-
-
+        //Setup idle animation using the frames
         idleAnimation = Animation(0.2f,idleFrames)
 
 
@@ -89,7 +89,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     fun update(dt: Float){
 
-
+        //Update player states based on player actions
         currentPlayerState = STANDING
 
         if (controller.left){
@@ -140,7 +140,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             //FALLING -> TODO()
             //JUMPING -> TODO()
             //DOUBLE_JUMPING -> TODO()
-            //CHARGING -> TODO()
+            //CHARGING ->
             //SHOOTING -> TODO()
             //MOVING_LEFT -> TODO()
             //MOVING_RIGHT -> TODO()
@@ -149,6 +149,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             }
 
         }
+        println("Player State $currentPlayerState")
 
         //println("Current player state $currentPlayerState Previous state $previousPlayerState")
 
@@ -169,6 +170,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     }
 
     private fun bulletLogic() {
+        //Increase bullet size as long as you hold space
         if(controller.space) {
             if (!activeBullet) {
                 println("Created bullet")
@@ -179,7 +181,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             }
             currentPlayerState = CHARGING
         }
-
+        //When you release space, shoot the bullet
         if(spaceReleased){
             bullet?.release()
             println("can create new bullet")
@@ -189,11 +191,13 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     }
 
     fun move(vector2: Vector2){
+        //Move based on the vector given
         playerBody.applyLinearImpulse(vector2,Vector2(playerBody.position.x,playerBody.position.y),true)
     }
 
 
     fun drawPlayer(batch: SpriteBatch){
+        //draw the sprite ontop of the player
         val xPos = playerBody.position.x * PPM - (w / 2f)
         val yPos = playerBody.position.y * PPM - (h / 2f)
 
@@ -202,6 +206,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         sprite.draw(batch)
     }
 
+    //Move with gravity
     fun gravityMove(){
         if(isSwimming && playerBody.linearVelocity.y <= MAX_Y_VELOCITY){
             playerBody.applyForceToCenter(Vector2(0f,2f),true)
@@ -238,6 +243,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         }
     }
 
+    //Move with no gravity
     fun omniMove(){
         if(controller.up && playerBody.linearVelocity.y <= MAX_Y_VELOCITY){
             move(Vector2(0f,0.5f))
