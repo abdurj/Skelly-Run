@@ -228,6 +228,4 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     }
 
 
-
-
 }
