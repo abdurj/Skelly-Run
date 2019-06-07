@@ -2,7 +2,6 @@ package com.mygdx.game.entities
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.*
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
@@ -24,7 +23,7 @@ enum class State{
     STANDING
 }
 
-class Player(private val bodyFactory: BodyFactory, private val controller: KeyboardController, private val atlas: TextureAtlas, val camera: OrthographicCamera){
+class Player(private val bodyFactory: BodyFactory, private val controller: KeyboardController, atlas: TextureAtlas){
 
     private val region = atlas.findRegion("GXM00")
 
@@ -62,6 +61,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     var health = 100f
 
     private val idleAnimation: Animation<TextureRegion>
+    internal val bullets = ArrayList<Bullet>()
 
     init{
 
@@ -82,7 +82,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         idleAnimation = Animation(0.2f,idleFrames)
 
 
-        sprite.setSize(w,h)
+        sprite.setSize(w+5f,h+5f)
         playerBody.angularDamping = 100f
         playerBody.userData = this
     }
@@ -131,7 +131,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     }
 
     private fun getFrame(dt: Float): TextureRegion {
-        var region: TextureRegion
+        val region: TextureRegion
 
         when(currentPlayerState){
             STANDING  -> {
@@ -174,10 +174,13 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         if(controller.space) {
             if (!activeBullet) {
                 println("Created bullet")
-                bullet = Bullet(playerBody, 3f,1f, bodyFactory, controller,right)
+                bullet = Bullet(playerBody, 1f,1f, bodyFactory, controller,right)
+                bullet!!.maxHeight = 5f
+                bullet!!.maxWidth = 5f
+                bullets.add(bullet!!)
                 activeBullet = true
             } else {
-                bullet?.update(0f, 0.1f, playerBody)
+                bullet?.update(0.1f, 0.1f, playerBody)
             }
             currentPlayerState = CHARGING
         }
@@ -202,7 +205,17 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         val yPos = playerBody.position.y * PPM - (h / 2f)
 
         sprite.setPosition(xPos,yPos)
-
+        for(bullet in bullets) {
+            if(bullet.drawSprite) {
+                if (bullet.right == true) {
+                    bullet.sprite.setFlip(false, false)
+                } else {
+                    bullet.sprite.setFlip(true, false)
+                }
+                bullet.sprite.setPosition(bullet.body.position.x * PPM - bullet.width / 2, bullet.body.position.y * PPM - bullet.height / 2)
+                bullet.sprite.draw(batch)
+            }
+        }
         sprite.draw(batch)
     }
 

@@ -1,8 +1,5 @@
 package com.mygdx.game
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
-import com.badlogic.gdx.ai.steer.behaviors.Arrive
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -14,16 +11,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.physics.box2d.*
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Array
-import com.badlogic.gdx.utils.viewport.Viewport
 import com.mygdx.game.Parallax.ParallaxBackground
 import com.mygdx.game.Parallax.ParallaxLayer
 import com.mygdx.game.controller.KeyboardController
-import com.mygdx.game.entities.Bullet
 import com.mygdx.game.entities.Enemy
 import com.mygdx.game.entities.Player
-import com.mygdx.game.entities.setup.SteeringEntity
 import com.mygdx.game.utils.*
 
 class B2DModel(val controller: KeyboardController, val camera: OrthographicCamera) {
@@ -43,7 +36,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     val batch = SpriteBatch()
 
     //Create Player
-    var player = Player(bodyFactory, controller, atlas, camera)
+    var player = Player(bodyFactory, controller, atlas)
     private val playerBody = player.playerBody
 
     //private val water = bodyFactory.makeBoxPolyBody(176f,40f,95f,48f, STONE, BodyDef.BodyType.StaticBody)
@@ -144,7 +137,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         //Update all enemies, if they have been deleted, cancel their shooting actions and remove them from the array
 
         for(x in enemies.size-1 downTo 0){
-            var enemy = enemies[x]
+            val enemy = enemies[x]
             if(enemy.body.userData == null){
                 enemy.shoot.cancel()
                 enemies.removeIndex(x)
@@ -164,7 +157,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         }
 
         //Update camera
-        cameraStep(deltaTime)
+        cameraStep()
 
         //Update sprite batch camera and tilemap camera
         batch.projectionMatrix = camera.combined
@@ -207,17 +200,17 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         run { val iter: Iterator<Body> = bodies.iterator()
             while (iter.hasNext())
             {
-                var body: Body? = iter.next()
+                val body: Body? = iter.next()
                 val data = body?.userData
                 if (data == "delete") {
                     world.destroyBody(body)
-                    body?.userData = null
+                    body.userData = null
                 }
             } }
     }
 
     //Update the camera using the player's position
-    private fun cameraStep(deltaTime: Float){
+    private fun cameraStep() {
         val position: Vector3 = camera.position
 
         position.x = playerBody.position.x * PPM

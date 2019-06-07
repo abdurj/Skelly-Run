@@ -94,6 +94,8 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
                     }
                 }
                 bullet.body.userData = "delete"
+                bullet.dispose()
+                player.bullets.remove(bullet)
             }
         }
 
