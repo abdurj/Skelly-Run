@@ -90,8 +90,8 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         bodyFactory.makeAllFixturesSensors(forestPlat)
         forestPlat.userData = "forest"
 
-        val floor = bodyFactory.makeBoxPolyBody(0f,0f,5000f,1f,STONE,BodyDef.BodyType.StaticBody,true)
-        floor.userData = "MainPlat"
+        //val floor = bodyFactory.makeBoxPolyBody(0f,0f,5000f,1f,STONE,BodyDef.BodyType.StaticBody,true)
+        //floor.userData = "MainPlat"
         //Parse the layers from the Tilemap
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")

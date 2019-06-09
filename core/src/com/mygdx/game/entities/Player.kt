@@ -125,6 +125,12 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
         sprite.setRegion(getFrame(dt))
 
+        if(right){
+            sprite.flip(true,false)
+        }
+        else{
+            sprite.flip(false,false)
+        }
         previousPlayerState = currentPlayerState
 
         //println("State: $currentPlayerState Last State: $lastPlayerState")
@@ -133,8 +139,8 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     private fun getFrame(dt: Float): TextureRegion {
         val region: TextureRegion
 
-        when(currentPlayerState){
-            STANDING  -> {
+        when(currentPlayerState) {
+            STANDING -> {
                 region = idleAnimation.getKeyFrame(stateTimer)
             }
             //FALLING -> TODO()
@@ -142,14 +148,18 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             //DOUBLE_JUMPING -> TODO()
             //CHARGING ->
             //SHOOTING -> TODO()
-            //MOVING_LEFT -> TODO()
-            //MOVING_RIGHT -> TODO()
-            else -> {
+            MOVING_LEFT -> {
                 region = TextureRegion(this.region,64,64,32,32)
+            }
+            MOVING_RIGHT -> {
+                region = TextureRegion(this.region, 64, 64, 32, 32)
+            }
+            else -> {
+                region = TextureRegion(this.region, 64, 64, 32, 32)
             }
 
         }
-        println("Player State $currentPlayerState")
+        println("Player State $currentPlayerState Last Player State $lastPlayerState")
 
         //println("Current player state $currentPlayerState Previous state $previousPlayerState")
 

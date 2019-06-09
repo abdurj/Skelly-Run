@@ -39,6 +39,7 @@ class Bullet(player: Body, var width: Float, var height: Float, bodyFactory: Bod
             body = bodyFactory.makeBoxPolyBody(player.position.x - 16/ PPM, player.position.y, width, height, LOW_FRIC)
             sprite.setPosition(player.position.x - 16/ PPM, player.position.y)
         }
+
         body.isBullet = true
         body.userData = this
         body.gravityScale = 0f
