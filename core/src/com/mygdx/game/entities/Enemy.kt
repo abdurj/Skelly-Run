@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Timer
 import com.mygdx.game.BodyFactory
 import com.mygdx.game.utils.*
 
-class Enemy(private val x: Float,private val y: Float,private val shootInterval: Float,private val bodyFactory: BodyFactory, private val batch: SpriteBatch, private val player: Body) {
+class Enemy(private val x: Float, private val y: Float,private val shootInterval: Float,private val bodyFactory: BodyFactory, private val batch: SpriteBatch, private val player: Body) {
 
     internal var health = 10f;
 

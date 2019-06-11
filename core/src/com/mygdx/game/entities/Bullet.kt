@@ -53,11 +53,9 @@ class Bullet(player: Body, var width: Float, var height: Float, bodyFactory: Bod
             sprite.setSize(width,height)
         }
         if(controller.left){
-            println("left")
             right = false
         }
         if(controller.right){
-            println("right")
             right = true
         }
         setPosition(player)
@@ -66,12 +64,10 @@ class Bullet(player: Body, var width: Float, var height: Float, bodyFactory: Bod
 
     fun release() {
         if (right) {
-            println("bang right")
             body.applyLinearImpulse(Vector2(0.1f, 0f), body.position, true)
             shot = true
         }
         else{
-            println("bang left")
             body.applyLinearImpulse(Vector2(-0.1f, 0f), body.position, true)
             shot = true
         }

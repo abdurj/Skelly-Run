@@ -82,7 +82,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         idleAnimation = Animation(0.2f,idleFrames)
 
 
-        sprite.setSize(w+5f,h+5f)
+        sprite.setSize(w+7f,h+7f)
         playerBody.angularDamping = 100f
         playerBody.userData = this
     }
@@ -159,7 +159,6 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
             }
 
         }
-        println("Player State $currentPlayerState Last Player State $lastPlayerState")
 
         //println("Current player state $currentPlayerState Previous state $previousPlayerState")
 
@@ -183,7 +182,6 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         //Increase bullet size as long as you hold space
         if(controller.space) {
             if (!activeBullet) {
-                println("Created bullet")
                 bullet = Bullet(playerBody, 1f,1f, bodyFactory, controller,right)
                 bullet!!.maxHeight = 5f
                 bullet!!.maxWidth = 5f
@@ -197,7 +195,6 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         //When you release space, shoot the bullet
         if(spaceReleased){
             bullet?.release()
-            println("can create new bullet")
             activeBullet = false
             currentPlayerState = SHOOTING
         }
@@ -211,8 +208,8 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     fun drawPlayer(batch: SpriteBatch){
         //draw the sprite ontop of the player
-        val xPos = playerBody.position.x * PPM - (w / 2f)
-        val yPos = playerBody.position.y * PPM - (h / 2f)
+        val xPos = playerBody.position.x * PPM - ((w+7f) / 2f)
+        val yPos = playerBody.position.y * PPM - ((h) / 2f)
 
         sprite.setPosition(xPos,yPos)
         for(bullet in bullets) {

@@ -45,7 +45,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     var lastSpaceState = false
 
-    var enemies = Array<Enemy>()
+    var enemies = ArrayList<Enemy>()
 
     //Backgrounds
     val cityBackground: ParallaxBackground
@@ -108,12 +108,11 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         enemies.clear()
 
         //Initialize enemies
-        val enemy = Enemy(30f,100f,200f,bodyFactory,batch,playerBody)
-        val enemy2 = Enemy(90f,100f,500f,bodyFactory,batch,playerBody)
 
-        //Add enemies to array
-        enemies.add(enemy)
-        enemies.add(enemy2)
+        for(pair in enemyPosStageOne){
+            enemies.add(Enemy(pair.first,pair.second,1f,bodyFactory,batch,playerBody))
+        }
+
     }
 
     fun initPlayer(){
@@ -140,7 +139,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
             val enemy = enemies[x]
             if(enemy.body.userData == null){
                 enemy.shoot.cancel()
-                enemies.removeIndex(x)
+                enemies.remove(enemy)
             }
         }
 

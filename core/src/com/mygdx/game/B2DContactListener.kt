@@ -49,7 +49,9 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
         //println("${fA.body.userData} has hit ${fB.body.userData}")
 
         if((userDataA == "forest" || userDataB == "forest") && (userDataA is Player || userDataB is Player)){
-            parent.background = parent.forestBackground
+            if(parent.enemies.size == 0) {
+                parent.background = parent.forestBackground
+            }
         }
 
         if(userDataB == "water" && userDataA == "player"){
@@ -78,13 +80,11 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
             if(bullet.shot) {
                 if (userDataA is Enemy || userDataB is Enemy) {
                     val enemy = if (userDataA is Enemy) userDataA else userDataB as Enemy
-
                     //subtract
                     enemy.subtractHealth(bullet.damage)
                     if (enemy.health < 0) {
                         enemy.body.userData = "delete"
                     }
-                    println(enemy.health)
                 }
                 if(userDataA is Player || userDataB is Player){
                     val player = if(userDataA is Player) userDataA else userDataB as Player
