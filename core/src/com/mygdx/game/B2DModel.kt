@@ -54,7 +54,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     //Create Player
     var player = Player(bodyFactory, controller, atlas)
-    val health = Rectangle(Gdx.graphics.width/2f,Gdx.graphics.height/2f,player.health,10f)
+    val health = Rectangle(Gdx.graphics.width/2f,Gdx.graphics.height/2f,player.health,1f)
     private val playerBody = player.playerBody
 
 
@@ -288,9 +288,9 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
         //println("PLAYER POS X: ${playerBody.position.x*PPM} PLAYER POS Y: ${playerBody.position.y*PPM}")
 
-        health.width = player.health
+        health.width = player.health / 5
         health.x = playerBody.position.x * PPM - health.width/2
-        health.y = playerBody.position.y * PPM + 130f
+        health.y = playerBody.position.y * PPM + 8f
 
         //Update camera
         cameraStep()
