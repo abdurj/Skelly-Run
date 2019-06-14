@@ -1,13 +1,18 @@
 package com.mygdx.game
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.physics.box2d.*
@@ -19,6 +24,14 @@ import com.mygdx.game.entities.Enemy
 import com.mygdx.game.entities.Player
 import com.mygdx.game.utils.*
 
+enum class Level{
+    Level1,
+    Level2,
+    Level3,
+    Level4,
+    Level5
+}
+
 class B2DModel(val controller: KeyboardController, val camera: OrthographicCamera) {
     //Create world with -9.8 gravity
     val world: World = World(Vector2(0f,-9.8f),true)
@@ -29,21 +42,35 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     private val atlas = TextureAtlas("character_sprites/Player.pack")
 
     //Import map
-    val map: TiledMap = TmxMapLoader().load("maps/map2.tmx")
+    var map: TiledMap = TmxMapLoader().load("maps/map.tmx")
 
     val tmr: OrthogonalTiledMapRenderer = OrthogonalTiledMapRenderer(map)
 
     val batch = SpriteBatch()
 
+    val shapeRenderer = ShapeRenderer()
+
     //Create Player
     var player = Player(bodyFactory, controller, atlas)
+    val health = Rectangle(Gdx.graphics.width/2f,Gdx.graphics.height/2f,player.health,10f)
     private val playerBody = player.playerBody
 
     //private val water = bodyFactory.makeBoxPolyBody(176f,40f,95f,48f, STONE, BodyDef.BodyType.StaticBody)
 
-    private val forestPlat = bodyFactory.makeBoxPolyBody(0f,50f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+    private val level1Portal = bodyFactory.makeBoxPolyBody(1335f,200f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+    private val level2Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+    private val level3Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+    private val level4Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+    private val level5Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+
+
+    private val portalSprite = Sprite()
+
 
     var lastSpaceState = false
+
+    var currentLevel = Level.Level3
+    var clearLevel = false
 
     var enemies = ArrayList<Enemy>()
 
@@ -52,8 +79,11 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     val forestBackground: ParallaxBackground
     val glacialBackground: ParallaxBackground
 
+    var portal: Body = level2Portal
+
     var background: ParallaxBackground
     init {
+        shapeRenderer.color = Color(1f,0f,0f,0f)
         cityBackground = ParallaxBackground(
                 arrayOf(
                         ParallaxLayer(TextureRegion(Texture("Parallax/CityParallax/far-buildings.png")), Vector2(0f,0f), Vector2(0f,0f)),
@@ -83,22 +113,17 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
         //Initialize the enemies and players
         initPlayer()
-        initEnemies()
+        initLevel()
+
 
         world.setContactListener(B2DContactListener(this))
 
-        bodyFactory.makeAllFixturesSensors(forestPlat)
-        forestPlat.userData = "forest"
-
-        //val floor = bodyFactory.makeBoxPolyBody(0f,0f,5000f,1f,STONE,BodyDef.BodyType.StaticBody,true)
-        //floor.userData = "MainPlat"
-        //Parse the layers from the Tilemap
-        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
-        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
+        bodyFactory.makeAllFixturesSensors(level1Portal)
+        level1Portal.userData = "portal"
 
     }
 
-    fun initEnemies(){
+    fun initLevel(){
         //If there are currently enemies, delete them and cancel all shooting actions
         for(enemy in enemies){
             enemy.body.userData = "delete"
@@ -107,11 +132,65 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         //Clear the enemy array
         enemies.clear()
 
-        //Initialize enemies
+        //Initialize enemies, adds enemies based on currentLevel
 
-        for(pair in enemyPosStageOne){
-            enemies.add(Enemy(pair.first,pair.second,1f,bodyFactory,batch,playerBody))
+        when(currentLevel){
+            Level.Level1 -> {
+                map = TmxMapLoader().load("maps/map.tmx")
+
+                for (pair in enemyPosStageOne) {
+                    enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
+                }
+                portal = level1Portal
+                portal.userData = "portal"
+
+                background = forestBackground
+            }
+            Level.Level2->{
+                map = TmxMapLoader().load("maps/map2.tmx")
+                tmr.map = map
+
+                background = cityBackground
+                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
+
+                portal = level2Portal
+                portal.userData = "portal"
+            }
+            Level.Level3 ->{
+                map = TmxMapLoader().load("maps/map3.tmx")
+                tmr.map = map
+
+                background = cityBackground
+                playerBody.setTransform(Vector2(80f/ PPM,55f/ PPM),playerBody.angle)
+
+                portal = level3Portal
+                portal.userData = "portal"
+            }
+            Level.Level4 ->{
+                map = TmxMapLoader().load("maps/map4.tmx")
+                tmr.map = map
+
+                background = cityBackground
+                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
+
+                portal = level3Portal
+                portal.userData = "portal"
+            }
+            Level.Level5->{
+                map = TmxMapLoader().load("maps/map5.tmx")
+                tmr.map = map
+
+                background = cityBackground
+                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
+
+                portal = level3Portal
+                portal.userData = "portal"
+            }
         }
+        portalSprite.setPosition(portal.position.x, portal.position.y)
+
+        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
+        TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
 
     }
 
@@ -155,11 +234,18 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
             background.speed.set(Vector2(0f,0f))
         }
 
+        println("PLAYER POS X: ${playerBody.position.x*PPM} PLAYER POS Y: ${playerBody.position.y*PPM}")
+
+        health.width = player.health
+        health.x = playerBody.position.x * PPM - health.width/2
+        health.y = playerBody.position.y * PPM + 130f
+
         //Update camera
         cameraStep()
 
         //Update sprite batch camera and tilemap camera
         batch.projectionMatrix = camera.combined
+        shapeRenderer.projectionMatrix = camera.combined
         tmr.setView(camera)
 
         lastSpaceState = controller.space
@@ -167,10 +253,15 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     //Render spritebatch/tiledmap
     fun render(dt: Float){
-        background.render(dt)
 
+
+        background.render(dt)
         batchUpdate()
         tmr.render()
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
+        shapeRenderer.rect(health.x,health.y,health.width,health.height)
+        shapeRenderer.end()
+
     }
 
     private fun batchUpdate(){
@@ -178,6 +269,9 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         batch.begin()
         //Draw the player using the batch
         player.drawPlayer(batch)
+        for(enemy in enemies){
+            enemy.render(batch)
+        }
         batch.end()
     }
 
@@ -190,6 +284,17 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
         world.step(deltaTime,6,2)
         sweepDeadBodies()
+        if(clearLevel){
+            clearLevel()
+        }
+        if(player.resetPlayer){
+            resetPlayer()
+        }
+    }
+
+    private fun resetPlayer(){
+        player.playerBody.setTransform(Vector2(150f/PPM,100f/PPM),0f)
+        player.resetPlayer = false
     }
 
     //Run after a world step, deletes all bodies with the delete tag
@@ -206,6 +311,24 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                     body.userData = null
                 }
             } }
+    }
+
+    private fun clearLevel(){
+        val bodies = Array<Body>()
+        world.getBodies(bodies)
+        run { val iter: Iterator<Body> = bodies.iterator()
+            while (iter.hasNext())
+            {
+                val body: Body? = iter.next()
+                val data = body?.userData
+                if (data != player) {
+                    world.destroyBody(body)
+                }
+
+            } }
+        player.playerBody.setTransform(Vector2(50f,50f),playerBody.angle)
+        clearLevel = false
+        initLevel()
     }
 
     //Update the camera using the player's position

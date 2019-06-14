@@ -1,11 +1,13 @@
 package com.mygdx.game
 
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.physics.box2d.Fixture
 import com.mygdx.game.entities.Bullet
 import com.mygdx.game.entities.Enemy
 import com.mygdx.game.entities.EnemyBullet
 import com.mygdx.game.entities.Player
+import com.mygdx.game.utils.PPM
 
 
 class B2DContactListener(private val parent: B2DModel) : ContactListener{
@@ -48,9 +50,34 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
 
         //println("${fA.body.userData} has hit ${fB.body.userData}")
 
-        if((userDataA == "forest" || userDataB == "forest") && (userDataA is Player || userDataB is Player)){
+        if((userDataA == "portal" || userDataB == "portal") && (userDataA is Player || userDataB is Player)) {
             if(parent.enemies.size == 0) {
-                parent.background = parent.forestBackground
+                when(parent.currentLevel){
+                    Level.Level1 -> {
+                        parent.clearLevel = true
+                        parent.currentLevel = Level.Level2
+                    }
+                    Level.Level2 -> {
+                        parent.clearLevel = true
+                        parent.currentLevel = Level.Level3
+                    }
+                    Level.Level3 ->{
+                        parent.clearLevel = true
+                        parent.currentLevel = Level.Level4
+                    }
+                    Level.Level4->{
+                        parent.clearLevel  =true
+                        parent.currentLevel = Level.Level5
+                    }
+                    Level.Level5->{
+                        parent.clearLevel = true
+                        parent.currentLevel = Level.Level1
+                    }
+                }
+            }
+            else{
+                parent.clearLevel = false
+                parent.player.resetPlayer = true
             }
         }
 
@@ -107,6 +134,7 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
             }
             //println("${fA.body.userData} A, ${fB.body.userData}")
             bullet.body.userData = "delete"
+            bullet.parent.bullets.remove(bullet)
         }
 
     }

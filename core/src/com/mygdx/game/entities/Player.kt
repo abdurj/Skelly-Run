@@ -37,6 +37,8 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     var previousPlayerState: State = FALLING
     var lastPlayerState = FALLING
 
+    var resetPlayer = false
+
 
     private val w = 14f
     private val h = 14f
