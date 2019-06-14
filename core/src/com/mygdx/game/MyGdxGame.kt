@@ -66,7 +66,7 @@ class MyGdxGame : ApplicationAdapter() {
         model?.render(Gdx.graphics.deltaTime)
 
 
-        b2dr.render(model?.world,camera.combined.scl(PPM))
+        //b2dr.render(model?.world,camera.combined.scl(PPM))
 
         gsm.update(Gdx.graphics.deltaTime)
         gsm.render(batch)

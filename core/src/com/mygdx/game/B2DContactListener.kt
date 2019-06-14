@@ -50,35 +50,60 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
 
         //println("${fA.body.userData} has hit ${fB.body.userData}")
 
-        if((userDataA == "portal" || userDataB == "portal") && (userDataA is Player || userDataB is Player)) {
-            if(parent.enemies.size == 0) {
-                when(parent.currentLevel){
-                    Level.Level1 -> {
-                        parent.clearLevel = true
-                        parent.currentLevel = Level.Level2
-                    }
-                    Level.Level2 -> {
-                        parent.clearLevel = true
-                        parent.currentLevel = Level.Level3
-                    }
-                    Level.Level3 ->{
-                        parent.clearLevel = true
-                        parent.currentLevel = Level.Level4
-                    }
-                    Level.Level4->{
-                        parent.clearLevel  =true
-                        parent.currentLevel = Level.Level5
-                    }
-                    Level.Level5->{
-                        parent.clearLevel = true
-                        parent.currentLevel = Level.Level1
-                    }
-                }
+        if((userDataA == "portal1" || userDataB == "portal1") && (userDataA is Player || userDataB is Player)){
+            if(parent.enemies.size == 0){
+                parent.clearLevel = true
+                parent.currentLevel= Level.Level2
             }
             else{
                 parent.clearLevel = false
                 parent.player.resetPlayer = true
             }
+            return
+        }
+        if((userDataA == "portal2" || userDataB == "portal2") && (userDataA is Player || userDataB is Player)){
+            if(parent.enemies.size == 0){
+                parent.clearLevel = true
+                parent.currentLevel= Level.Level3
+            }
+            else{
+                parent.clearLevel = false
+                parent.player.resetPlayer = true
+            }
+            return
+        }
+        if((userDataA == "portal3" || userDataB == "portal3") && (userDataA is Player || userDataB is Player)){
+            if(parent.enemies.size == 0){
+                parent.clearLevel = true
+                parent.currentLevel= Level.Level4
+            }
+            else{
+                parent.clearLevel = false
+                parent.player.resetPlayer = true
+            }
+            return
+        }
+        if((userDataA == "portal4" || userDataB == "portal4") && (userDataA is Player || userDataB is Player)){
+            if(parent.enemies.size == 0){
+                parent.clearLevel = true
+                parent.currentLevel= Level.Level5
+            }
+            else{
+                parent.clearLevel = false
+                parent.player.resetPlayer = true
+            }
+            return
+        }
+        if((userDataA == "portal5" || userDataB == "portal5") && (userDataA is Player || userDataB is Player)){
+            if(parent.enemies.size == 0){
+                parent.clearLevel = true
+                parent.currentLevel= Level.Level1
+            }
+            else{
+                parent.clearLevel = false
+                parent.player.resetPlayer = true
+            }
+            return
         }
 
         if(userDataB == "water" && userDataA == "player"){

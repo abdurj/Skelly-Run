@@ -2,6 +2,7 @@ package com.mygdx.game.entities
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.*
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
@@ -27,7 +28,9 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
     private val region = atlas.findRegion("GXM00")
 
-    private val texture = TextureRegion(region, 64,64,32,32)
+    //private val region = TextureRegion(Texture("character_sprites/character.png"))
+
+    private val texture = TextureRegion(region, 0,0,32,32)
 
     private val idleFrames =  Array<TextureRegion>()
 
@@ -71,14 +74,14 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
         //Add all frames of player animation to the array
         idleFrames.add(TextureRegion(region,0,0,32,32))
-        idleFrames.add(TextureRegion(region,32,0,32,32))
-        idleFrames.add(TextureRegion(region,64,0,32,32))
-        idleFrames.add(TextureRegion(region,0,32,32,32))
-        idleFrames.add(TextureRegion(region,32,32,32,32))
-        idleFrames.add(TextureRegion(region,64,32,32,32))
-        idleFrames.add(TextureRegion(region,0,64,32,32))
-        idleFrames.add(TextureRegion(region,32,64,32,32))
-        idleFrames.add(TextureRegion(region,64,64,32,32))
+//        idleFrames.add(TextureRegion(region,32,0,32,32))
+//        idleFrames.add(TextureRegion(region,64,0,32,32))
+//        idleFrames.add(TextureRegion(region,0,32,32,32))
+//        idleFrames.add(TextureRegion(region,32,32,32,32))
+//        idleFrames.add(TextureRegion(region,64,32,32,32))
+//        idleFrames.add(TextureRegion(region,0,64,32,32))
+//        idleFrames.add(TextureRegion(region,32,64,32,32))
+//        idleFrames.add(TextureRegion(region,64,64,32,32))
 
         //Setup idle animation using the frames
         idleAnimation = Animation(0.2f,idleFrames)
@@ -90,7 +93,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     }
 
     fun update(dt: Float){
-
+        println("Player Pos X: ${playerBody.position.x*PPM} Y: ${playerBody.position.y* PPM}")
         //Update player states based on player actions
         currentPlayerState = STANDING
 

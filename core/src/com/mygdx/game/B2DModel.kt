@@ -55,33 +55,28 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     val health = Rectangle(Gdx.graphics.width/2f,Gdx.graphics.height/2f,player.health,10f)
     private val playerBody = player.playerBody
 
-    //private val water = bodyFactory.makeBoxPolyBody(176f,40f,95f,48f, STONE, BodyDef.BodyType.StaticBody)
-
-    private val level1Portal = bodyFactory.makeBoxPolyBody(1335f,200f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
-    private val level2Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
-    private val level3Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
-    private val level4Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
-    private val level5Portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
-
 
     private val portalSprite = Sprite()
 
 
     var lastSpaceState = false
 
-    var currentLevel = Level.Level3
+    var currentLevel = Level.Level4
     var clearLevel = false
 
     var enemies = ArrayList<Enemy>()
 
     //Backgrounds
-    val cityBackground: ParallaxBackground
-    val forestBackground: ParallaxBackground
-    val glacialBackground: ParallaxBackground
+    private val cityBackground: ParallaxBackground
+    private val forestBackground: ParallaxBackground
+    private val glacialBackground: ParallaxBackground
+    private val mountainBackground: ParallaxBackground
+    private val industrialBackground: ParallaxBackground
 
-    var portal: Body = level2Portal
 
     var background: ParallaxBackground
+
+    lateinit var portal: Body
     init {
         shapeRenderer.color = Color(1f,0f,0f,0f)
         cityBackground = ParallaxBackground(
@@ -101,12 +96,34 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 ,Vector2(0f,0f))
         glacialBackground = ParallaxBackground(
                 arrayOf(
-                        ParallaxLayer(TextureRegion(Texture("Parallax/ForestParallax/parallax-forest-back-trees.png")), Vector2(0f,0f), Vector2(0f,0f)),
-                        ParallaxLayer(TextureRegion(Texture("Parallax/ForestParallax/parallax-forest-lights.png")), Vector2(0f,0f), Vector2(0f,0f)),
-                        ParallaxLayer(TextureRegion(Texture("Parallax/ForestParallax/parallax-forest-middle-trees.png")), Vector2(0f,0f), Vector2(0f,0f)),
-                        ParallaxLayer(TextureRegion(Texture("Parallax/ForestParallax/parallax-forest-front-trees.png")), Vector2(0f,0f), Vector2(0f,0f))
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/sky.png")), Vector2(0.05f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/clouds_BG.png")), Vector2(0.1f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/mountains.png")), Vector2(0.2f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/clouds_MG_3.png")), Vector2(0.2f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/clouds_MG_2.png")), Vector2(0.2f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/clouds_MG_1.png")), Vector2(0.2f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/GlacialParallax/cloud_lonely.png")), Vector2(1.5f,0f), Vector2(0f,0f))
+
                 )
                 ,camera.viewportWidth/1.5f,camera.viewportHeight/ 1.5f,Vector2(0f,0f))
+        mountainBackground = ParallaxBackground(
+                arrayOf(
+                        ParallaxLayer(TextureRegion(Texture("Parallax/MountainParallax/parallax-mountain-bg.png")), Vector2(0.05f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/MountainParallax/parallax-mountain-montain-far.png")), Vector2(0.1f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/MountainParallax/parallax-mountain-mountains.png")), Vector2(0.3f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/MountainParallax/parallax-mountain-trees.png")), Vector2(0.3f,0f), Vector2(0f,0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/MountainParallax/parallax-mountain-foreground-trees.png")), Vector2(0.8f,0f), Vector2(0f,0f))
+
+                )
+                ,camera.viewportWidth/1.5f,camera.viewportHeight/ 1.5f,Vector2(0f,0f))
+        industrialBackground = ParallaxBackground(
+                arrayOf(
+                        ParallaxLayer(TextureRegion(Texture("Parallax/IndustrialParallax/skill-desc_0003_bg.png")), Vector2(0.05f, 0f), Vector2(0f, 0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/IndustrialParallax/skill-desc_0002_far-buildings.png")), Vector2(0.1f, 0f), Vector2(0f, 0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/IndustrialParallax/skill-desc_0001_buildings.png")), Vector2(0.3f, 0f), Vector2(0f, 0f)),
+                        ParallaxLayer(TextureRegion(Texture("Parallax/IndustrialParallax/skill-desc_0000_foreground.png")), Vector2(0.5f, 0f), Vector2(0f, 75f))
+                )
+                , camera.viewportWidth / 1.5f, camera.viewportHeight/1.5f, Vector2(0f, 0f))
 
         background = cityBackground
 
@@ -118,8 +135,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
         world.setContactListener(B2DContactListener(this))
 
-        bodyFactory.makeAllFixturesSensors(level1Portal)
-        level1Portal.userData = "portal"
 
     }
 
@@ -137,12 +152,16 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         when(currentLevel){
             Level.Level1 -> {
                 map = TmxMapLoader().load("maps/map.tmx")
-
+                tmr.map = map
                 for (pair in enemyPosStageOne) {
                     enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
                 }
-                portal = level1Portal
-                portal.userData = "portal"
+
+                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
+
+
+                portal = bodyFactory.makeBoxPolyBody(1335f,200f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+                portal.userData = "portal1"
 
                 background = forestBackground
             }
@@ -150,31 +169,34 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 map = TmxMapLoader().load("maps/map2.tmx")
                 tmr.map = map
 
-                background = cityBackground
+                background = mountainBackground
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
-                portal = level2Portal
-                portal.userData = "portal"
+                portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+                portal.userData = "portal2"
+
             }
             Level.Level3 ->{
                 map = TmxMapLoader().load("maps/map3.tmx")
                 tmr.map = map
 
-                background = cityBackground
+                background = glacialBackground
                 playerBody.setTransform(Vector2(80f/ PPM,55f/ PPM),playerBody.angle)
 
-                portal = level3Portal
-                portal.userData = "portal"
+                portal = bodyFactory.makeBoxPolyBody(1390f,647f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+                portal.userData = "portal3"
+
             }
             Level.Level4 ->{
                 map = TmxMapLoader().load("maps/map4.tmx")
                 tmr.map = map
 
-                background = cityBackground
+                background = industrialBackground
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
-                portal = level3Portal
-                portal.userData = "portal"
+                portal = bodyFactory.makeBoxPolyBody(1522f,711f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+                portal.userData = "portal4"
+
             }
             Level.Level5->{
                 map = TmxMapLoader().load("maps/map5.tmx")
@@ -183,12 +205,13 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 background = cityBackground
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
-                portal = level3Portal
-                portal.userData = "portal"
+                portal = bodyFactory.makeBoxPolyBody(2496f,448f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+                portal.userData = "portal5"
+
             }
         }
+        bodyFactory.makeAllFixturesSensors(portal)
         portalSprite.setPosition(portal.position.x, portal.position.y)
-
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
 
@@ -206,7 +229,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
 
     fun update(deltaTime: Float){
-
         //Update your logic
         logicStep(deltaTime)
         //Update player
@@ -234,7 +256,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
             background.speed.set(Vector2(0f,0f))
         }
 
-        println("PLAYER POS X: ${playerBody.position.x*PPM} PLAYER POS Y: ${playerBody.position.y*PPM}")
+        //println("PLAYER POS X: ${playerBody.position.x*PPM} PLAYER POS Y: ${playerBody.position.y*PPM}")
 
         health.width = player.health
         health.x = playerBody.position.x * PPM - health.width/2
