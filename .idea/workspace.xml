@@ -2,29 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59d31bf7-8a2f-49be-b6f2-641b4ec467e2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowTo2State.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/WinState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DContactListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DContactListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/B2DModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/entities/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/entities/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/utils/ConstantsKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/utils/ConstantsKt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DContactListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DContactListener.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/B2DModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Enemy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Enemy.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/DeadState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/DeadState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowToState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowToState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/PlayState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/PlayState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/utils/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/utils/Constants.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/character_sprites/portal1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/character_sprites/portal2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/character_sprites/wizard attack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/character_sprites/wizard death.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/character_sprites/wizard fly forward.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/character_sprites/wizard idle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/assets/images/HowToPlay.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/assets/images/HowToPlay.png" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -70,7 +54,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/B2DModel.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="364">
@@ -91,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="89" column="23" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
+            <state relative-caret-position="356">
+              <caret line="110" column="10" selection-start-line="110" selection-start-column="10" selection-end-line="110" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -181,11 +165,11 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/WinState.kt" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/DeadState.kt" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.kt" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowToState.kt" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/HowTo2State.kt" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/utils/Constants.kt" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/B2DModel.kt" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt" />
       </list>
     </option>
   </component>
@@ -281,7 +265,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560514903716" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560515026048" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/desktop/assets" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
@@ -433,7 +417,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560505063747</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="finish game">
+      <created>1560515005885</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1560515005885</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -496,7 +487,8 @@
     <MESSAGE value="Added fireball" />
     <MESSAGE value="Added new level" />
     <MESSAGE value="added new character" />
-    <option name="LAST_COMMIT_MESSAGE" value="added new character" />
+    <MESSAGE value="finish game" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish game" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/desktop/assets/assets/maps/map.tmx" />
@@ -718,13 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="89" column="23" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/HowToState.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -756,6 +741,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/entities/Player.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="110" column="10" selection-start-line="110" selection-start-column="10" selection-end-line="110" selection-end-column="10" />
         </state>
       </provider>
     </entry>

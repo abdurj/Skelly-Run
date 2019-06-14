@@ -107,8 +107,8 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         }
 
         spaceReleased = lastSpaceState == true && controller.space == false
-        //gravityMove()
-        omniMove()
+        gravityMove()
+        //omniMove()
 
         if(playerBody.linearVelocity.y > 0.1 && isJumping){
             currentPlayerState = JUMPING

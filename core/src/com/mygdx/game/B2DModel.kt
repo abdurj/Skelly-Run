@@ -63,7 +63,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     var lastSpaceState = false
 
-    var currentLevel = Level.Level4
+    var currentLevel = Level.Level1
     var clearLevel = false
 
     var enemies = ArrayList<Enemy>()
