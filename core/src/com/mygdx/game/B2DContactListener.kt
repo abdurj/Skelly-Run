@@ -98,6 +98,7 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
             if(parent.enemies.size == 0){
                 parent.clearLevel = true
                 parent.currentLevel= Level.Level1
+                parent.winGame = true
             }
             else{
                 parent.clearLevel = false

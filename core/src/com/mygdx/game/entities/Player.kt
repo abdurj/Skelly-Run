@@ -74,14 +74,14 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
         //Add all frames of player animation to the array
         idleFrames.add(TextureRegion(region,0,0,32,32))
-//        idleFrames.add(TextureRegion(region,32,0,32,32))
-//        idleFrames.add(TextureRegion(region,64,0,32,32))
-//        idleFrames.add(TextureRegion(region,0,32,32,32))
-//        idleFrames.add(TextureRegion(region,32,32,32,32))
-//        idleFrames.add(TextureRegion(region,64,32,32,32))
-//        idleFrames.add(TextureRegion(region,0,64,32,32))
-//        idleFrames.add(TextureRegion(region,32,64,32,32))
-//        idleFrames.add(TextureRegion(region,64,64,32,32))
+        idleFrames.add(TextureRegion(region,32,0,32,32))
+        idleFrames.add(TextureRegion(region,64,0,32,32))
+        idleFrames.add(TextureRegion(region,0,32,32,32))
+        idleFrames.add(TextureRegion(region,32,32,32,32))
+        idleFrames.add(TextureRegion(region,64,32,32,32))
+        idleFrames.add(TextureRegion(region,0,64,32,32))
+        idleFrames.add(TextureRegion(region,32,64,32,32))
+        idleFrames.add(TextureRegion(region,64,64,32,32))
 
         //Setup idle animation using the frames
         idleAnimation = Animation(0.2f,idleFrames)
@@ -93,7 +93,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     }
 
     fun update(dt: Float){
-        println("Player Pos X: ${playerBody.position.x*PPM} Y: ${playerBody.position.y* PPM}")
+        //println("Player Pos X: ${playerBody.position.x*PPM} Y: ${playerBody.position.y* PPM}")
         //Update player states based on player actions
         currentPlayerState = STANDING
 
@@ -107,8 +107,8 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
         }
 
         spaceReleased = lastSpaceState == true && controller.space == false
-        gravityMove()
-        //omniMove()
+        //gravityMove()
+        omniMove()
 
         if(playerBody.linearVelocity.y > 0.1 && isJumping){
             currentPlayerState = JUMPING

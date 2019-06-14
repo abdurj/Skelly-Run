@@ -1,5 +1,6 @@
 package com.mygdx.game.entities
 
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.*
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
@@ -15,14 +16,7 @@ class Enemy(private val x: Float, private val y: Float,private val shootInterval
 
     internal val body = bodyFactory.makeBoxPolyBody(x,y,20f,20f, STONE,BodyDef.BodyType.DynamicBody,true)
 
-    private val region = atlas.findRegion("GXM00")
-
-    private val texture = TextureRegion(region, 64,64,32,32)
-
-    private val idleFrames =  Array<TextureRegion>()
-
     val sprite: Sprite
-    val animation: Animation<TextureRegion>
 
     internal var notShooting = false
     val bullets = ArrayList<EnemyBullet>()
@@ -44,24 +38,9 @@ class Enemy(private val x: Float, private val y: Float,private val shootInterval
 
     init{
 
-        sprite = Sprite(texture)
+        sprite = Sprite(Texture("character_sprites/enemy.png"))
 
-        //Add all frames of player animation to the array
-        idleFrames.add(TextureRegion(region,0,0,32,32))
-        idleFrames.add(TextureRegion(region,32,0,32,32))
-        idleFrames.add(TextureRegion(region,64,0,32,32))
-        idleFrames.add(TextureRegion(region,0,32,32,32))
-        idleFrames.add(TextureRegion(region,32,32,32,32))
-        idleFrames.add(TextureRegion(region,64,32,32,32))
-        idleFrames.add(TextureRegion(region,0,64,32,32))
-        idleFrames.add(TextureRegion(region,32,64,32,32))
-        idleFrames.add(TextureRegion(region,64,64,32,32))
-
-        //Setup idle animation using the frames
-        animation = Animation(0.2f,idleFrames)
-
-
-        sprite.setSize(25f,25f)
+        sprite.setSize(35f,35f)
         body.userData = this
         //body.applyLinearImpulse(Vector2(0.2f,0f),body.position,true)
     }
@@ -127,10 +106,10 @@ class Enemy(private val x: Float, private val y: Float,private val shootInterval
             }
 
         if(body.linearVelocity.x > 0){
-            sprite.setFlip(true,false)
+            sprite.setFlip(false,false)
         }
         else if(body.linearVelocity.x < 0){
-            sprite.setFlip(false,false)
+            sprite.setFlip(true,false)
         }
 
         previousPosition = body.position

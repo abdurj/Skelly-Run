@@ -31,3 +31,46 @@ val enemyPosStageOne: Array<Pair<Float,Float>> = arrayOf(
         Pair(1170f,540f)
 )
 
+val enemyPosStageTwo: Array<Pair<Float,Float>> = arrayOf(
+        Pair(62f,327f),
+        Pair(190f,410f),
+        Pair(785f,425f),
+        Pair(914f,425f),
+        Pair(1000f,425f),
+        Pair(1025f,360f),
+        Pair(864f,185f),
+        Pair(880f,55f),
+        Pair(1428f,311f),
+        Pair(1425f,570f)
+)
+
+val enemyPosStageThree: Array<Pair<Float,Float>> = arrayOf(
+        Pair(575f,40f),
+        Pair(470f,440f),
+        Pair(410f,680f),
+        Pair(560f,727f),
+        Pair(1242f,455f),
+        Pair(1000f,327f),
+        Pair(1100f,215f),
+        Pair(1481f,215f),
+        Pair(1517f,585f)
+)
+
+val enemyPosStageFour: Array<Pair<Float,Float>> = arrayOf(
+        Pair(497f,727f),
+        Pair(493f,551f),
+        Pair(759f,551f),
+        Pair(907f,760f)
+)
+
+val enemyPosStageFive: Array<Pair<Float,Float>> = arrayOf(
+        Pair(401f,40f),
+        Pair(437f,103f),
+        Pair(522f,311f),
+        Pair(494f,360f),
+        Pair(232f,360f),
+        Pair(927f,360f),
+        Pair(1160f,615f),
+        Pair(1171f,711f)
+)
+

@@ -19,6 +19,9 @@ class PlayState(gsm: GameStateManager, var model: B2DModel) : State(gsm) {
         if(player.health <= 0){
             gsm.set(DeadState(gsm,model))
         }
+        if(model.winGame){
+            gsm.set(WinState(gsm,model))
+        }
     }
 
     override fun render(sb: SpriteBatch) {

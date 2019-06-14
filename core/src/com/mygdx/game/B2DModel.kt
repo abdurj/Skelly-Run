@@ -38,6 +38,8 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     //val world: World = World(Vector2(0f,0f),true)
     private val bodyFactory = BodyFactory(world)
 
+    var winGame = false
+
     //Import Player texture atlas
     private val atlas = TextureAtlas("character_sprites/Player.pack")
 
@@ -56,7 +58,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     private val playerBody = player.playerBody
 
 
-    private val portalSprite = Sprite()
+    private var portalSprite = Sprite()
 
 
     var lastSpaceState = false
@@ -148,7 +150,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         enemies.clear()
 
         //Initialize enemies, adds enemies based on currentLevel
-
         when(currentLevel){
             Level.Level1 -> {
                 map = TmxMapLoader().load("maps/map.tmx")
@@ -156,62 +157,91 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 for (pair in enemyPosStageOne) {
                     enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
                 }
-
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
-
-
-                portal = bodyFactory.makeBoxPolyBody(1335f,200f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
+                portal = bodyFactory.makeBoxPolyBody(1335f,200f,50f,100f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal1"
 
                 background = forestBackground
+                portalSprite = Sprite(Texture("images/portal1.png"))
+                portalSprite.setSize(25f,50f)
+                portalSprite.setPosition(portal.position.x* PPM - portalSprite.width/2,portal.position.y*PPM-portalSprite.height/2)
+
+
             }
             Level.Level2->{
                 map = TmxMapLoader().load("maps/map2.tmx")
                 tmr.map = map
+
+                for (pair in enemyPosStageTwo) {
+                    enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
+                }
 
                 background = mountainBackground
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal2"
+                portalSprite = Sprite(Texture("images/portal2.png"))
+                portalSprite.setSize(25f,50f)
+                portalSprite.setPosition(portal.position.x* PPM - portalSprite.width/2,portal.position.y*PPM-portalSprite.height/2)
 
             }
             Level.Level3 ->{
                 map = TmxMapLoader().load("maps/map3.tmx")
                 tmr.map = map
 
+                for (pair in enemyPosStageThree) {
+                    enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
+                }
+
                 background = glacialBackground
                 playerBody.setTransform(Vector2(80f/ PPM,55f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(1390f,647f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal3"
+                portalSprite = Sprite(Texture("images/portal3.png"))
+                portalSprite.setSize(25f,50f)
+                portalSprite.setPosition(portal.position.x* PPM - portalSprite.width/2,portal.position.y*PPM-portalSprite.height/2)
 
             }
             Level.Level4 ->{
                 map = TmxMapLoader().load("maps/map4.tmx")
                 tmr.map = map
 
+                for (pair in enemyPosStageFour) {
+                    enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
+                }
+
                 background = industrialBackground
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(1522f,711f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal4"
+                portalSprite = Sprite(Texture("images/portal4.png"))
+                portalSprite.setSize(25f,50f)
+                portalSprite.setPosition(portal.position.x* PPM - portalSprite.width/2,portal.position.y*PPM-portalSprite.height/2)
 
             }
             Level.Level5->{
                 map = TmxMapLoader().load("maps/map5.tmx")
                 tmr.map = map
 
+                for (pair in enemyPosStageFive) {
+                    enemies.add(Enemy(pair.first, pair.second, 1f, bodyFactory, batch, playerBody,atlas))
+                }
+
                 background = cityBackground
                 playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(2496f,448f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal5"
+                portalSprite = Sprite(Texture("images/portal5.png"))
+                portalSprite.setSize(25f,50f)
+                portalSprite.setPosition(portal.position.x* PPM - portalSprite.width/2,portal.position.y*PPM-portalSprite.height/2)
 
             }
         }
         bodyFactory.makeAllFixturesSensors(portal)
-        portalSprite.setPosition(portal.position.x, portal.position.y)
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
 
@@ -294,6 +324,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         for(enemy in enemies){
             enemy.render(batch)
         }
+        portalSprite.draw(batch)
         batch.end()
     }
 

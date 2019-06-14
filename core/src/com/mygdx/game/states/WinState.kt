@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.mygdx.game.B2DModel
 
-class DeadState(gsm: GameStateManager, var model: B2DModel): State(gsm) {
+class WinState(gsm:GameStateManager,private val model: B2DModel) : State(gsm) {
 
-    private val background: Texture = Texture("images/gameOver.png")
+    private val background: Texture = Texture("images/winScreen.png")
 
     override fun handleInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
@@ -30,6 +30,5 @@ class DeadState(gsm: GameStateManager, var model: B2DModel): State(gsm) {
     }
 
     override fun dispose() {
-        background.dispose()
     }
 }

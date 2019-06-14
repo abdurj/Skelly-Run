@@ -6,30 +6,19 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.mygdx.game.B2DModel
 
-class MenuState(gsm: GameStateManager, val model: B2DModel) : State(gsm) {
-    private val background: Texture
+class HowTo2State(gsm: GameStateManager, private val model: B2DModel) : State(gsm) {
 
+    private val background: Texture = Texture("images/howToPlay2.png")
 
-    init {
-        background = Texture("images/start.png")
-
-    }
-
-    public override fun handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            gsm.set(PlayState(gsm, model))
-            dispose()
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+    override fun handleInput() {
+        if(Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
             gsm.set(HowToState(gsm,model))
             dispose()
         }
-
     }
 
     override fun update(dt: Float) {
         handleInput()
-
     }
 
     override fun render(sb: SpriteBatch) {
