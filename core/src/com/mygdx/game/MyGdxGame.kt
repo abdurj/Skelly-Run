@@ -39,6 +39,7 @@ class MyGdxGame : ApplicationAdapter() {
 
         batch = SpriteBatch()
 
+        //set camera position
         camera = OrthographicCamera()
         camera.zoom *= 0.4f
         camera.setToOrtho(false, width / SCALE, height / SCALE)
@@ -47,11 +48,13 @@ class MyGdxGame : ApplicationAdapter() {
 
         b2dr = Box2DDebugRenderer(true,true,true,true,true,true)
 
+        //play music
         music = Gdx.audio.newMusic(Gdx.files.internal("sds.mp3"))
         music.setLooping(true)
         music.setVolume(0.1f)
         music.play()
 
+        //push state
         gsm.push(MenuState(gsm, model!!))
 
     }

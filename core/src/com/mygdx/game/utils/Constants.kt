@@ -15,8 +15,11 @@ const val LOW_FRIC = 5
 const val MAX_X_VELOCITY = 5
 const val MAX_Y_VELOCITY = 6
 
+const val MAX_SPRINT_VELOCITY = 6
+
 const val MAX_ENEMY_X_VELOCITY = 1f
 
+//Constant enemy positions
 val enemyPosStageOne: Array<Pair<Float,Float>> = arrayOf(
         Pair(537f,54f),
         Pair(720f,120f),

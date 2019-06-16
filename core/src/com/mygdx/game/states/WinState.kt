@@ -30,5 +30,6 @@ class WinState(gsm:GameStateManager,private val model: B2DModel) : State(gsm) {
     }
 
     override fun dispose() {
+        background.dispose()
     }
 }

@@ -63,7 +63,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     var lastSpaceState = false
 
-    var currentLevel = Level.Level1
+    var currentLevel = Level.Level5
     var clearLevel = false
 
     var enemies = ArrayList<Enemy>()
@@ -71,8 +71,8 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     //Backgrounds
     private val cityBackground: ParallaxBackground
     private val forestBackground: ParallaxBackground
-    private val glacialBackground: ParallaxBackground
-    private val mountainBackground: ParallaxBackground
+        private val glacialBackground: ParallaxBackground
+        private val mountainBackground: ParallaxBackground
     private val industrialBackground: ParallaxBackground
 
 
@@ -177,7 +177,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 }
 
                 background = mountainBackground
-                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(1220f,727f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal2"
@@ -195,7 +194,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 }
 
                 background = glacialBackground
-                playerBody.setTransform(Vector2(80f/ PPM,55f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(1390f,647f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal3"
@@ -213,7 +211,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 }
 
                 background = industrialBackground
-                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(1522f,711f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal4"
@@ -231,7 +228,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 }
 
                 background = cityBackground
-                playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),playerBody.angle)
 
                 portal = bodyFactory.makeBoxPolyBody(2496f,448f,50f,50f,STONE,BodyDef.BodyType.StaticBody)
                 portal.userData = "portal5"
@@ -241,6 +237,10 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
             }
         }
+
+
+        playerBody.setTransform(Vector2(50f,150f/ PPM),playerBody.angle)
+
         bodyFactory.makeAllFixturesSensors(portal)
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("collisionLayer").objects,"MainPlat")
         TiledObjectUtil.parseTiledObjectLayer(world,map.layers.get("noFricLayer").objects,"SidePlat")
@@ -249,7 +249,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     fun initPlayer(){
         //Initialize your player
-        player.playerBody.setTransform(Vector2(150f/ PPM,100f/ PPM),0f)
+        player.playerBody.setTransform(Vector2(50f/ PPM,100f/ PPM),0f)
 
         //Set player health to 100
         player.health = 100f
@@ -259,6 +259,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
 
     fun update(deltaTime: Float){
+
         //Update your logic
         logicStep(deltaTime)
         //Update player
@@ -301,6 +302,11 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         tmr.setView(camera)
 
         lastSpaceState = controller.space
+
+        if(winGame){
+            currentLevel = Level.Level1
+            clearLevel()
+        }
     }
 
     //Render spritebatch/tiledmap
@@ -310,6 +316,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         background.render(dt)
         batchUpdate()
         tmr.render()
+        //Render healthbar
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
         shapeRenderer.rect(health.x,health.y,health.width,health.height)
         shapeRenderer.end()
@@ -345,8 +352,9 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
         }
     }
 
+    //Reset player back to start
     private fun resetPlayer(){
-        player.playerBody.setTransform(Vector2(150f/PPM,100f/PPM),0f)
+        player.playerBody.setTransform(Vector2(50f/PPM,50f/PPM),0f)
         player.resetPlayer = false
     }
 
@@ -379,9 +387,9 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
                 }
 
             } }
-        player.playerBody.setTransform(Vector2(50f,50f),playerBody.angle)
         clearLevel = false
         initLevel()
+        playerBody.setTransform(Vector2(50f/PPM,150f/PPM),playerBody.angle)
     }
 
     //Update the camera using the player's position

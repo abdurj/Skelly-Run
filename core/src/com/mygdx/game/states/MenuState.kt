@@ -12,6 +12,7 @@ class MenuState(gsm: GameStateManager, val model: B2DModel) : State(gsm) {
 
     init {
         background = Texture("images/start.png")
+        model.winGame = false
 
     }
 

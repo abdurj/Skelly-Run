@@ -46,7 +46,7 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
     private val w = 14f
     private val h = 14f
 
-    val playerBody = bodyFactory.makeBoxPolyBody(150f, 100f, w, h, STONE, BodyDef.BodyType.DynamicBody, true)
+    val playerBody = bodyFactory.makeBoxPolyBody(50f, 100f, w, h, STONE, BodyDef.BodyType.DynamicBody, true)
     val playerEntity = SteeringEntity(playerBody, 10f)
     var isSwimming = false
     var isJumping = false
@@ -243,6 +243,15 @@ class Player(private val bodyFactory: BodyFactory, private val controller: Keybo
 
         if(controller.right && playerBody.linearVelocity.x <= MAX_X_VELOCITY){
             move(Vector2(0.5f,0f))
+        }
+
+        //sprinting
+        if (controller.right && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && playerBody.linearVelocity.x <= MAX_SPRINT_VELOCITY){
+            move(Vector2(0.4f, 0f))
+        }
+
+        if (controller.left && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && playerBody.linearVelocity.x >= -MAX_SPRINT_VELOCITY){
+            move(Vector2(-0.4f, 0f))
         }
 
         else if(!controller.right && !controller.left){

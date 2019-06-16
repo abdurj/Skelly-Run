@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-up" width="100" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="163">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-up" width="100" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="164">
  <tileset firstgid="1" source="industrial.v2.tsx"/>
  <tileset firstgid="1025" source="Forest.tsx"/>
  <layer id="5" name="Tile Layer 1" width="100" height="50">
@@ -288,6 +288,9 @@
   </object>
   <object id="162" x="1568" y="637">
    <polyline points="0,0 -84,0 -92,-12 -85,-24 -6,-25"/>
+  </object>
+  <object id="163" x="964.5" y="432">
+   <polyline points="0,0 43.5,0 59.5,-16"/>
   </object>
  </objectgroup>
 </map>

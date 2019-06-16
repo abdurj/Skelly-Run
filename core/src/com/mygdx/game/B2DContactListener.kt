@@ -19,6 +19,7 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
         val fb = contact.fixtureB
         //println("${fa.body.userData} has left ${fb.body.userData}")
 
+        //If you leave the top of a platform you're jumping
         if (fa.body.userData == "MainPlat") {
             player.isJumping = true
             player.doubleJump = false
@@ -50,71 +51,91 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
 
         //println("${fA.body.userData} has hit ${fB.body.userData}")
 
-        if((userDataA == "portal1" || userDataB == "portal1") && (userDataA is Player || userDataB is Player)){
-            if(parent.enemies.size == 0){
-                parent.clearLevel = true
-                parent.currentLevel= Level.Level2
+        //If you hit a portal and you cleared all the enemies, erase the level and initialize the next level on the next iteration of the world
+        if((userDataA == "portal1" || userDataB == "portal1")){
+            if(userDataA is Player || userDataB is Player) {
+                if (parent.enemies.size == 0) {
+                    parent.clearLevel = true
+                    parent.currentLevel = Level.Level2
+                } else {
+                    parent.clearLevel = false
+                    parent.player.resetPlayer = true
+                }
+                return
             }
-            else{
-                parent.clearLevel = false
-                parent.player.resetPlayer = true
+            else if(userDataA is Bullet || userDataB is Bullet){
+                parent.clearLevel=true
+                parent.currentLevel=Level.Level2
             }
-            return
         }
-        if((userDataA == "portal2" || userDataB == "portal2") && (userDataA is Player || userDataB is Player)){
-            if(parent.enemies.size == 0){
-                parent.clearLevel = true
-                parent.currentLevel= Level.Level3
+        if((userDataA == "portal2" || userDataB == "portal2")){
+            if(userDataA is Player || userDataB is Player) {
+                if (parent.enemies.size == 0) {
+                    parent.clearLevel = true
+                    parent.currentLevel = Level.Level3
+                } else {
+                    parent.clearLevel = false
+                    parent.player.resetPlayer = true
+                }
+                return
             }
-            else{
-                parent.clearLevel = false
-                parent.player.resetPlayer = true
+            else if(userDataA is Bullet || userDataB is Bullet){
+                parent.clearLevel=true
+                parent.currentLevel=Level.Level3
             }
-            return
         }
-        if((userDataA == "portal3" || userDataB == "portal3") && (userDataA is Player || userDataB is Player)){
-            if(parent.enemies.size == 0){
-                parent.clearLevel = true
-                parent.currentLevel= Level.Level4
+        if((userDataA == "portal3" || userDataB == "portal3")){
+            if(userDataA is Player || userDataB is Player) {
+                if (parent.enemies.size == 0) {
+                    parent.clearLevel = true
+                    parent.currentLevel = Level.Level4
+                } else {
+                    parent.clearLevel = false
+                    parent.player.resetPlayer = true
+                }
+                return
             }
-            else{
-                parent.clearLevel = false
-                parent.player.resetPlayer = true
+            else if(userDataA is Bullet || userDataB is Bullet){
+                parent.clearLevel=true
+                parent.currentLevel=Level.Level4
             }
-            return
         }
-        if((userDataA == "portal4" || userDataB == "portal4") && (userDataA is Player || userDataB is Player)){
-            if(parent.enemies.size == 0){
-                parent.clearLevel = true
-                parent.currentLevel= Level.Level5
+        if((userDataA == "portal4" || userDataB == "portal4")){
+            if(userDataA is Player || userDataB is Player) {
+                if (parent.enemies.size == 0) {
+                    parent.clearLevel = true
+                    parent.currentLevel = Level.Level5
+                } else {
+                    parent.clearLevel = false
+                    parent.player.resetPlayer = true
+                }
+                return
             }
-            else{
-                parent.clearLevel = false
-                parent.player.resetPlayer = true
+            else if(userDataA is Bullet || userDataB is Bullet){
+                parent.clearLevel=true
+                parent.currentLevel=Level.Level5
             }
-            return
         }
-        if((userDataA == "portal5" || userDataB == "portal5") && (userDataA is Player || userDataB is Player)){
-            if(parent.enemies.size == 0){
-                parent.clearLevel = true
-                parent.currentLevel= Level.Level1
+        if((userDataA == "portal5" || userDataB == "portal5")){
+            if(userDataA is Player || userDataB is Player) {
+                if (parent.enemies.size == 0) {
+                    parent.clearLevel = true
+                    parent.currentLevel = Level.Level1
+                    parent.winGame = true
+                } else {
+                    parent.clearLevel = false
+                    parent.player.resetPlayer = true
+                }
+                return
+            }
+            else if(userDataA is Bullet || userDataB is Bullet){
+                parent.clearLevel=true
+                parent.currentLevel=Level.Level1
                 parent.winGame = true
             }
-            else{
-                parent.clearLevel = false
-                parent.player.resetPlayer = true
-            }
-            return
         }
 
-        if(userDataB == "water" && userDataA == "player"){
-            player.isSwimming = true
-        }
-        else if(userDataB == "water" && userDataA == "player"){
-            //println("isswimming")
-            player.isSwimming = true
-        }
-
+        //If you're standing at the top of a platform you arent jumping
         if(fA.body.userData == "MainPlat"){
             player.isJumping = false
             player.doubleJump = false
@@ -139,13 +160,16 @@ class B2DContactListener(private val parent: B2DModel) : ContactListener{
                         enemy.body.userData = "delete"
                     }
                 }
+                //Check which userdata is the player
                 if(userDataA is Player || userDataB is Player){
                     val player = if(userDataA is Player) userDataA else userDataB as Player
+                    //Subtract the damage from the health
                     player.health -= bullet.damage
                     if(player.health < 0){
                         player.playerBody.userData = "playerDelete"
                     }
                 }
+                //set the bullet to be deleted later
                 bullet.body.userData = "delete"
                 bullet.dispose()
                 player.bullets.remove(bullet)

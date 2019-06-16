@@ -425,9 +425,6 @@
   <object id="407" x="1344" y="160">
    <polyline points="0,0 96,0"/>
   </object>
-  <object id="426" x="208" y="800">
-   <polyline points="0,0 -80,0"/>
-  </object>
   <object id="438" x="1568" y="224">
    <polyline points="0,0 -96,0"/>
   </object>
