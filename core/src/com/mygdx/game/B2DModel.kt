@@ -63,7 +63,7 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
     var lastSpaceState = false
 
-    var currentLevel = Level.Level5
+    var currentLevel = Level.Level1
     var clearLevel = false
 
     var enemies = ArrayList<Enemy>()
@@ -71,8 +71,8 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
     //Backgrounds
     private val cityBackground: ParallaxBackground
     private val forestBackground: ParallaxBackground
-        private val glacialBackground: ParallaxBackground
-        private val mountainBackground: ParallaxBackground
+    private val glacialBackground: ParallaxBackground
+    private val mountainBackground: ParallaxBackground
     private val industrialBackground: ParallaxBackground
 
 
@@ -287,7 +287,6 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
             background.speed.set(Vector2(0f,0f))
         }
 
-        //println("PLAYER POS X: ${playerBody.position.x*PPM} PLAYER POS Y: ${playerBody.position.y*PPM}")
 
         health.width = player.health / 5
         health.x = playerBody.position.x * PPM - health.width/2
@@ -388,6 +387,8 @@ class B2DModel(val controller: KeyboardController, val camera: OrthographicCamer
 
             } }
         clearLevel = false
+        player.activeBullet = false
+        player.bullet = null
         initLevel()
         playerBody.setTransform(Vector2(50f/PPM,150f/PPM),playerBody.angle)
     }
