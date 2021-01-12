@@ -5,4 +5,4 @@ Skelly Run is a 5-Stage 2D Platformer game developed using LibGDX and the Box2D 
 
 ## 5 Unique Stages
 Each stage is given a unique theme: Forest, Ice, Lava, Industrial, Cyberpunk
-![stages]()
+![stages](https://github.com/abdurj/Skelly-Run/blob/master/imgs/ezgif.com-gif-maker.gif?raw=true)
